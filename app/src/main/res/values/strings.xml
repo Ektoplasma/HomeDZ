@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">HomeDZ</string>
+    <string name='dateFormat'>dd/MM/yy \'at\' HH:mm:ss</string>
+    <string name="timestamp">&lt;br/&gt; &lt;small&gt; %1$s &lt;/small&gt;</string>
+    <string name="connectedto">Connected to </string>
+    <string name="Disconnect">Disconnect</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="publish">Publish</string>
+    <string name="title_activity_subscribe">Subscribe</string>
+    <string name="disconnected">Disconnected from</string>
+    <string name="topic">Topic</string>
+    <string name="history">History</string>
+    <string name="title_activity_history">History</string>
+    <string name="subscribed">Subscribed to </string>
+    <string name="token">org.eclipse.paho.android.service.sample.ClientConnections</string>
+    <string name="no_status">Unknown connection status to</string>
+    <string name="connecting">Connecting to</string>
+    <string name="disconnecting">Disconnecting from</string>
+    <string name="connectionError">An error occurred connecting to</string>
 </resources>
