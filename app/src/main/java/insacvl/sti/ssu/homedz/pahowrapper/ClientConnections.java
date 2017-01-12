@@ -95,12 +95,25 @@ public class ClientConnections extends AppCompatActivity {
                 R.layout.connection_text_view);
         connectionList.setAdapter(arrayAdapter);
 
+        // get all the available connections
+        Map<String, Connection> connections = Connections.getInstance(this)
+                .getConnections();
+
+        if (connections != null) {
+            for (String s : connections.keySet())
+            {
+                arrayAdapter.add(connections.get(s));
+            }
+        }
 
         connectionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!contextualActionBarActive) {
+
+                Log.d("ClientConnections", "OUI");
+                if (contextualActionBarActive) {
                     Connection c = arrayAdapter.getItem(position);
+                    Log.d("ClientConnections", "OUIOUI");
 
                     // start the connectionDetails activity to display the details about the
                     // selected connection
@@ -112,16 +125,6 @@ public class ClientConnections extends AppCompatActivity {
                 }
             }
         });
-        // get all the available connections
-        Map<String, Connection> connections = Connections.getInstance(this)
-                .getConnections();
-
-        if (connections != null) {
-            for (String s : connections.keySet())
-            {
-                arrayAdapter.add(connections.get(s));
-            }
-        }
 
     }
 

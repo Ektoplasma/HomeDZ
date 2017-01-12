@@ -6,4 +6,7 @@
     android:focusable="false"
     android:padding="10dp"
     android:drawableRight="@mipmap/arrow"
+    android:focusableInTouchMode="false"
+    android:clickable="false"
+
     />

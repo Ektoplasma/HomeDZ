@@ -17,7 +17,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import insacvl.sti.ssu.homedz.R;
-import android.app.ActionBar;
+import android.support.v7.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +25,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
 /**
@@ -39,7 +40,7 @@ import android.view.Menu;
  * </ul>
  *
  */
-public class ConnectionDetails extends FragmentActivity implements
+public class ConnectionDetails extends AppCompatActivity implements
         ActionBar.TabListener {
 
     /**
@@ -76,7 +77,7 @@ public class ConnectionDetails extends FragmentActivity implements
     private ChangeListener changeListener = null;
 
     /**
-     * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
+     * @see android.support.v7.app.AppCompatActivity#onCreate(android.os.Bundle)
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,7 @@ public class ConnectionDetails extends FragmentActivity implements
                 getSupportFragmentManager());
 
         // Set up the action bar for tab navigation
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // add the sectionsPagerAdapter
@@ -201,23 +202,8 @@ public class ConnectionDetails extends FragmentActivity implements
         return true;
     }
 
-    /**
-     * @see android.app.ActionBar.TabListener#onTabUnselected(android.app.ActionBar.Tab,
-     *      android.app.FragmentTransaction)
-     */
     @Override
-    public void onTabUnselected(ActionBar.Tab tab,
-                                FragmentTransaction fragmentTransaction) {
-        // Don't need to do anything when a tab is unselected
-    }
-
-    /**
-     * @see android.app.ActionBar.TabListener#onTabSelected(android.app.ActionBar.Tab,
-     *      android.app.FragmentTransaction)
-     */
-    @Override
-    public void onTabSelected(ActionBar.Tab tab,
-                              FragmentTransaction fragmentTransaction) {
+    public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
         viewPager.setCurrentItem(tab.getPosition());
@@ -229,14 +215,14 @@ public class ConnectionDetails extends FragmentActivity implements
         ((HistoryFragment) sectionsPagerAdapter.getItem(0)).refresh();
     }
 
-    /**
-     * @see android.app.ActionBar.TabListener#onTabReselected(android.app.ActionBar.Tab,
-     *      android.app.FragmentTransaction)
-     */
     @Override
-    public void onTabReselected(ActionBar.Tab tab,
-                                FragmentTransaction fragmentTransaction) {
-        // Don't need to do anything when the tab is reselected
+    public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
+
     }
 
     /**
