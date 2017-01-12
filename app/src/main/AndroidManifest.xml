@@ -14,13 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="insacvl.sti.ssu.homedz.MainActivity">
+        <activity android:name="insacvl.sti.ssu.homedz.pahowrapper.ClientConnections">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".pahowrapper.NewConnection" />
+
+        <activity android:name=".pahowrapper.ConnectionDetails"/>
 
         <service android:name="org.eclipse.paho.android.service.MqttService" >
         </service>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Licensed Materials - Property of IBM
+
+5747-SM3
+
+(C) Copyright IBM Corp. 1999, 2012 All Rights Reserved.
+
+US Government Users Restricted Rights - Use, duplication or
+disclosure restricted by GSA ADP Schedule Contract with
+IBM Corp.
+ -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/ok"
+        android:title="@string/save"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/setLastWill"
+        android:title="@string/willMessage"
+        android:titleCondensed="@string/willMessageShort"
+        app:showAsAction="always" />
+</menu>

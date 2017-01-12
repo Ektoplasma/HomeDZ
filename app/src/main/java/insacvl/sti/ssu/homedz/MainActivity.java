@@ -1,5 +1,6 @@
 package insacvl.sti.ssu.homedz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,9 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.UnsupportedEncodingException;
 
+import insacvl.sti.ssu.homedz.pahowrapper.ClientConnections;
 import insacvl.sti.ssu.homedz.pahowrapper.Connections;
+import insacvl.sti.ssu.homedz.pahowrapper.NewConnection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,10 +25,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Connections conn = Connections.getInstance(getApplicationContext());
-
-        String clientId = MqttClient.generateClientId();
-        MqttAndroidClient client = conn.createClient(getApplicationContext(), "tcp://10.0.2.2:1883", clientId);
-
+        Intent signIntent = new Intent(this, ClientConnections.class);
+        this.startActivity(signIntent);
     }
+
 }
