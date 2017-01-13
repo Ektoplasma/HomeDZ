@@ -111,7 +111,7 @@ public class ClientConnections extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Log.d("ClientConnections", "OUI");
-                if (contextualActionBarActive) {
+                //if (!contextualActionBarActive) {
                     Connection c = arrayAdapter.getItem(position);
                     Log.d("ClientConnections", "OUIOUI");
 
@@ -122,7 +122,7 @@ public class ClientConnections extends AppCompatActivity {
                             "insacvl.sti.ssu.homedz.pahowrapper.ConnectionDetails");
                     intent.putExtra("handle", c.handle());
                     startActivity(intent);
-                }
+                //}
             }
         });
 
