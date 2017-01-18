@@ -40,7 +40,7 @@ import insacvl.sti.ssu.homedz.R;
  */
 public class OpenFileDialog {
     public static String tag = "OpenFileDialog";
-    static final public String sRoot = "/";
+    static final public String sRoot = "/";//Environment.getExternalStorageDirectory().toString();
     static final public String sParent = "..";
     static final public String sFolder = ".";
     static final public String sEmpty = "";
@@ -128,10 +128,9 @@ public class OpenFileDialog {
         private int refreshFileList()
         {
             File[] files = null;
-            String root = Environment.getExternalStorageDirectory().toString();
 
             try{
-                files = new File(root).listFiles();
+                files = new File(path).listFiles();
             }
             catch(Exception e){
                 files = null;
@@ -175,13 +174,13 @@ public class OpenFileDialog {
                 }
                 else if(file.isFile()){
                     String sf = getSuffix(file.getName()).toLowerCase(Locale.getDefault());
-                    if(suffix == null || suffix.length()==0 || (sf.length()>0 && suffix.indexOf("."+sf+";")>=0)){
+                    //if(suffix == null || suffix.length()==0 || (sf.length()>0 && suffix.indexOf("."+sf+";")>=0)){
                         Map<String, Object> map = new HashMap<String, Object>();
                         map.put("name", file.getName());
                         map.put("path", file.getPath());
                         map.put("img", getImageId(sf));
                         lfiles.add(map);
-                    }
+                    //}
                 }
             }
 

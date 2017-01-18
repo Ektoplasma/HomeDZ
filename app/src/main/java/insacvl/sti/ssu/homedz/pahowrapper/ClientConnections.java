@@ -17,7 +17,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+import java.util.Properties;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import insacvl.sti.ssu.homedz.pahowrapper.Connection.ConnectionStatus;
@@ -31,6 +35,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ActionMode;
@@ -43,6 +48,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+
 import insacvl.sti.ssu.homedz.R;
 
 /**
@@ -263,6 +274,8 @@ public class ClientConnections extends AppCompatActivity {
 
         boolean ssl = (Boolean) data.get(ActivityConstants.ssl);
         String ssl_key = (String) data.get(ActivityConstants.ssl_key);
+//        Log.d("ClientConnections",ssl_key);
+       Log.d("ClientConnections","boolean ssl "+String.valueOf(ssl));
         String uri = null;
         if (ssl) {
             Log.e("SSLConnection", "Doing an SSL Connect");
@@ -279,21 +292,45 @@ public class ClientConnections extends AppCompatActivity {
         client = Connections.getInstance(this).createClient(this, uri, clientId);
 
         if (ssl){
-            try {
-                if(ssl_key != null && !ssl_key.equalsIgnoreCase(""))
-                {
-                    FileInputStream key = new FileInputStream(ssl_key);
-                    conOpt.setSocketFactory(client.getSSLSocketFactory(key,
-                            "mqtttest"));
-                }
+            if(ssl_key != null && !ssl_key.equalsIgnoreCase(""))
+            {
 
-            } catch (MqttSecurityException e) {
-                Log.e(this.getClass().getCanonicalName(),
-                        "MqttException Occured: ", e);
-            } catch (FileNotFoundException e) {
-                Log.e(this.getClass().getCanonicalName(),
-                        "MqttException Occured: SSL Key file not found", e);
+
+                try {
+                    FileInputStream key = new FileInputStream(ssl_key);
+                SSLContext context;
+                KeyStore ts = KeyStore.getInstance("bks");
+                ts.load(key,
+                        "".toCharArray());
+                TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
+                tmf.init(ts);
+                TrustManager[] tm = tmf.getTrustManagers();
+                context = SSLContext.getInstance("TLSv1.2");
+                context.init(null, tm, null);
+                 SocketFactory factory = context.getSocketFactory();
+                conOpt.setSocketFactory(factory);
+                    //conOpt.setSocketFactory(client.getSSLSocketFactory(key,
+                    //        ""));
+
+                } catch (Exception e) {
+                 // TODO: handle exception
+               }
+
             }
+            SSLContext sslContext = null;
+            try {
+                sslContext = SSLContext.getInstance("TLSv1.2");
+                sslContext.init(null, null, null);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (KeyManagementException e) {
+                e.printStackTrace();
+            }
+
+            /*Properties propo = new Properties();
+            propo.setProperty("com.ibm.ssl.protocol", "TLSv1");
+            conOpt.setSSLProperties(propo);*/
+
         }
 
         // create a client handle
@@ -396,7 +433,7 @@ public class ClientConnections extends AppCompatActivity {
             selected = position;
             selectedView = view;
             connectionList.setSelection(position);
-            view.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+            view.setBackgroundColor(ContextCompat.getColor(getApplicationContext(),android.R.color.holo_blue_dark));
             return true;
         }
 
@@ -405,7 +442,7 @@ public class ClientConnections extends AppCompatActivity {
          */
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            selectedView.setBackgroundColor(getResources().getColor(android.R.color.white));
+            selectedView.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), android.R.color.white));
             switch (item.getItemId()) {
                 case R.id.delete :
                     delete();
