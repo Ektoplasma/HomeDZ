@@ -1,0 +1,139 @@
+package insacvl.sti.ssu.homedz;
+
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
+
+public class TabsPagerAdapter extends FragmentPagerAdapter {
+
+    Context context;
+
+    public TabsPagerAdapter(FragmentManager fm, Context c) {
+        super(fm);
+        context = c;
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        switch(position){
+            case 0:
+                return new LogFragment();
+            case 1:
+                return new LightFragment();
+            case 2:
+                return new ThermFragment();
+            case 3:
+                return new MeteoFragment();
+            case 4:
+                return new SceneFragment();
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public int getCount() {
+        return 5;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        CharSequence seq;
+        switch (position){
+            case 0:
+                seq = "LOGS";
+                break;
+            case 1:
+                seq = "Lights";
+                break;
+            case 2:
+                seq = "Temperatures";
+                break;
+            case 3:
+                seq = "Meteo";
+                break;
+            case 4:
+                seq = "Scenes";
+                break;
+            default:
+                seq = "NULL";
+        }
+
+        return seq;
+    }
+/*
+    @Override
+    public CharSequence getPageTitle(int position) {
+        Drawable myDrawable = null;
+        String title = "";
+        switch (position) {
+            case 0:
+                //   myDrawable = context.getResources().getDrawable(R.drawable.img_section1);
+                //   title = context.getResources().getString(R.string.title_section1);
+                title = "test";
+                break;
+            case 1:
+                myDrawable = context.getResources().getDrawable(R.drawable.lightbulb_icon64);
+                //    title = context.getResources().getString(R.string.title_section2);
+                title = "test";
+                break;
+            case 2:
+                //   myDrawable = context.getResources().getDrawable(R.drawable.img_section3);
+                //    title = context.getResources().getString(R.string.title_section3);
+                title = "test";
+                break;
+            case 3:
+                //   myDrawable = context.getResources().getDrawable(R.drawable.img_section4);
+                //    title = context.getResources().getString(R.string.title_section4);
+                title = "test";
+                break;
+            case 4:
+                //  myDrawable = context.getResources().getDrawable(R.drawable.img_section5);
+                //  title = context.getResources().getString(R.string.title_section5);
+                title = "test";
+                break;
+            default:
+                break;
+        }
+        SpannableStringBuilder sb = new SpannableStringBuilder("   " + title); // space added before text for convenience
+        try {
+            myDrawable.setBounds(5, 5, myDrawable.getIntrinsicWidth(), myDrawable.getIntrinsicHeight());
+            ImageSpan span = new ImageSpan(myDrawable, DynamicDrawableSpan.ALIGN_BASELINE);
+            sb.setSpan(span, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        } catch (Exception e) {
+
+        }
+        return sb;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+
+        SpannableStringBuilder sb = new SpannableStringBuilder(" ");
+
+        if (position == 0) {
+            Drawable drawable = context.getDrawable(R.drawable.lightbulb_icon64);
+            drawable.setBounds(0, 0, 48, 48);
+            ImageSpan imageSpan = new ImageSpan(drawable);
+            //to make our tabs icon only, set the Text as blank string with white space
+            sb.setSpan(imageSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        if (position == 1) {
+            Drawable drawable = context.getDrawable(R.drawable.lightbulb_icon64);
+            drawable.setBounds(0, 0, 48, 48);
+            ImageSpan imageSpan = new ImageSpan(drawable);
+            //to make our tabs icon only, set the Text as blank string with white space
+            sb.setSpan(imageSpan, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        else
+            sb = new SpannableStringBuilder("test");
+
+        return sb;
+    }
+*/
+}
