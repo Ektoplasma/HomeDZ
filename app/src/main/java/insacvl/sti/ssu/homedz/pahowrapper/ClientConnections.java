@@ -63,8 +63,6 @@ import insacvl.sti.ssu.homedz.R;
  */
 public class ClientConnections extends AppCompatActivity {
 
-
-
     /**
      * Token to pass to the MQTT Service
      */
@@ -126,6 +124,18 @@ public class ClientConnections extends AppCompatActivity {
                     Connection c = arrayAdapter.getItem(position);
                     Log.d("ClientConnections", "OUIOUI");
 
+                    try {
+                        String[] topics = new String[1];
+                        topics[0] = "domoticz/out";
+                        Connections.getInstance(getApplicationContext()).getConnection(c.handle()).getClient()
+                                .subscribe("domoticz/out", 0, null, new ActionListener(getApplicationContext(), ActionListener.Action.SUBSCRIBE, c.handle(), topics));
+                    }
+                    catch (MqttSecurityException e) {
+                        Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + "domoticz/out" + " the client with the handle " + c.handle(), e);
+                    }
+                    catch (MqttException e) {
+                        Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + "domoticz/out" + " the client with the handle " + c.handle(), e);
+                    }
                     // start the connectionDetails activity to display the details about the
                     // selected connection
                     Intent intent = new Intent();

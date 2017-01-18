@@ -69,7 +69,6 @@ public class NewConnection extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.activity_new_connection, menu);
         OnMenuItemClickListener listener = new Listener(this);
         menu.findItem(R.id.connectAction).setOnMenuItemClickListener(listener);
-        menu.findItem(R.id.advanced).setOnMenuItemClickListener(listener);
 
         return true;
     }
@@ -186,14 +185,7 @@ public class NewConnection extends AppCompatActivity {
                         setResult(RESULT_OK, dataBundle);
                         newConnection.finish();
                         break;
-                    case R.id.advanced :
-                        //start the advanced options activity
-                        dataBundle.setClassName(newConnection,
-                                "insacvl.sti.ssu.homedz.pahowrapper.Advanced");
-                        newConnection.startActivityForResult(dataBundle,
-                                ActivityConstants.advancedConnect);
 
-                        break;
                 }
                 return false;
 

@@ -27,10 +27,6 @@
 
         <activity android:name=".pahowrapper.ConnectionDetails"/>
 
-        <activity android:name=".pahowrapper.Advanced"/>
-
-        <activity android:name=".pahowrapper.LastWill" />
-
         <service android:name="org.eclipse.paho.android.service.MqttService" >
         </service>
     </application>

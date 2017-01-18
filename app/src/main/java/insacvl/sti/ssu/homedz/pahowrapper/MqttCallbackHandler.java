@@ -17,6 +17,8 @@ import insacvl.sti.ssu.homedz.R;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import insacvl.sti.ssu.homedz.pahowrapper.Connection.ConnectionStatus;
@@ -79,6 +81,9 @@ public class MqttCallbackHandler implements MqttCallback {
 
         //Get connection object associated with this object
         Connection c = Connections.getInstance(context).getConnection(clientHandle);
+
+        //transform message received to json
+        JSONObject jsonMessage = new JSONObject(new String(message.getPayload()));
 
         //create arguments to format message arrived notifcation string
         String[] args = new String[2];

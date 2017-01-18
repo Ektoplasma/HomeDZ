@@ -18,10 +18,5 @@ IBM Corp.
         android:title="@string/connect"
         app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/advanced"
-        android:title="@string/advanced"
-        android:titleCondensed="@string/advancedShort"
-        app:showAsAction="ifRoom"/>
 
 </menu>

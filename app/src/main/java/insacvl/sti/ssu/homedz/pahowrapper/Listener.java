@@ -97,12 +97,12 @@ public class Listener implements OnMenuItemClickListener {
 
         switch (id)
         {
-            case R.id.publish :
+            /*case R.id.publish :
                 publish();
-                break;
-            case R.id.subscribe :
+                break;*/
+            /*case R.id.subscribe :
                 subscribe();
-                break;
+                break;*/
             case R.id.newConnection :
                 createAndConnect();
                 break;
@@ -171,6 +171,7 @@ public class Listener implements OnMenuItemClickListener {
     /**
      * Subscribe to a topic that the user has specified
      */
+    /*
     private void subscribe()
     {
         String topic = ((EditText) connectionDetails.findViewById(R.id.topic)).getText().toString();
@@ -205,10 +206,11 @@ public class Listener implements OnMenuItemClickListener {
             Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + topic + " the client with the handle " + clientHandle, e);
         }
     }
-
+    */
     /**
      * Publish the message the user has specified
      */
+    /*
     private void publish()
     {
         String topic = ((EditText) connectionDetails.findViewById(R.id.lastWillTopic))
@@ -256,6 +258,7 @@ public class Listener implements OnMenuItemClickListener {
         }
 
     }
+    */
 
     /**
      * Create a new client and connect

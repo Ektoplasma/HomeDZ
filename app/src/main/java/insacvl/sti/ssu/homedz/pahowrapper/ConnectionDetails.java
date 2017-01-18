@@ -35,8 +35,6 @@ import android.view.Menu;
  * The fragments which this FragmentActivity uses are
  * <ul>
  * <li>{@link HistoryFragment}
- * <li>{@link PublishFragment}
- * <li>{@link SubscribeFragment}
  * </ul>
  *
  */
@@ -147,14 +145,14 @@ public class ConnectionDetails extends AppCompatActivity implements
                 case 0 : // history view
                     menuID = R.menu.activity_connection_details;
                     break;
-                case 1 : // subscribe view
+                /*case 1 : // subscribe view
                     menuID = R.menu.activity_subscribe;
                     button = R.id.subscribe;
-                    break;
-                case 2 : // publish view
+                    break;*/
+                /*case 1 : // publish view
                     menuID = R.menu.activity_publish;
                     button = R.id.publish;
-                    break;
+                    break;*/
                 default :
                     menuID = R.menu.activity_connection_details;
                     break;
@@ -165,14 +163,14 @@ public class ConnectionDetails extends AppCompatActivity implements
                 case 0 : // history view
                     menuID = R.menu.activity_connection_details_disconnected;
                     break;
-                case 1 : // subscribe view
+                /*case 1 : // subscribe view
                     menuID = R.menu.activity_subscribe_disconnected;
                     button = R.id.subscribe;
-                    break;
-                case 2 : // publish view
+                    break;*/
+                /*case 1 : // publish view
                     menuID = R.menu.activity_publish_disconnected;
                     button = R.id.publish;
-                    break;
+                    break;*/
                 default :
                     menuID = R.menu.activity_connection_details_disconnected;
                     break;
@@ -250,8 +248,6 @@ public class ConnectionDetails extends AppCompatActivity implements
             fragment.setArguments(args);
             // add all the fragments for the display to the fragments list
             fragments.add(fragment);
-            fragments.add(new SubscribeFragment());
-            fragments.add(new PublishFragment());
 
         }
 
@@ -280,10 +276,10 @@ public class ConnectionDetails extends AppCompatActivity implements
             switch (position) {
                 case 0 :
                     return getString(R.string.history).toUpperCase();
-                case 1 :
-                    return getString(R.string.subscribe).toUpperCase();
-                case 2 :
-                    return getString(R.string.publish).toUpperCase();
+                /*case 1 :
+                    return getString(R.string.subscribe).toUpperCase();*/
+                /*case 1 :
+                    return getString(R.string.publish).toUpperCase();*/
             }
             // return null if there is no title matching the position
             return null;
