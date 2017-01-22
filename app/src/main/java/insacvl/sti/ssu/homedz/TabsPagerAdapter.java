@@ -13,44 +13,39 @@ import android.text.Spanned;
 import android.text.style.ImageSpan;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import insacvl.sti.ssu.homedz.pahowrapper.ActivityConstants;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
     Context context;
 
+    // Stores the instances of the pages
+    private ArrayList<Fragment> fragments = null;
+
     public TabsPagerAdapter(FragmentManager fm, Context c) {
         super(fm);
         context = c;
+        fragments = new ArrayList<Fragment>();
+        fragments.add(new LogFragment());
+        fragments.add(new LightFragment());
+        fragments.add(new ThermFragment());
+        fragments.add(new MeteoFragment());
+        fragments.add(new SceneFragment());
 
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch(position){
-            case 0:
-                Log.d("TabsPagerAdapter","ICI GETITEM OK");
-                Fragment fragment = new LogFragment();
-                Bundle args = new Bundle();
-                args.putString("handle", ActivityConstants.currentHandler);
-                fragment.setArguments(args);
-                return fragment;
-            case 1:
-                return new LightFragment();
-            case 2:
-                return new ThermFragment();
-            case 3:
-                return new MeteoFragment();
-            case 4:
-                return new SceneFragment();
-            default:
-                return null;
-        }
+
+        return fragments.get(position);
+
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return fragments.size();
     }
 
     @Override
