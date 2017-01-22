@@ -145,6 +145,7 @@ public class NewConnection extends AppCompatActivity {
                             return false;
                         }
 
+                        boolean ssl = ((CheckBox) findViewById(R.id.sslCheckBox)).isChecked();
                         boolean cleanSession = ((CheckBox) findViewById(R.id.cleanSessionCheckBox)).isChecked();
                         //persist server
                         persistServerURI(server);
@@ -154,6 +155,7 @@ public class NewConnection extends AppCompatActivity {
                         dataBundle.putExtra(ActivityConstants.port, port);
                         dataBundle.putExtra(ActivityConstants.clientId, clientId);
                         dataBundle.putExtra(ActivityConstants.action, ActivityConstants.connect);
+                        dataBundle.putExtra(ActivityConstants.ssl, ssl);
                         dataBundle.putExtra(ActivityConstants.cleanSession, cleanSession);
 
                         if (result == null) {
@@ -176,8 +178,6 @@ public class NewConnection extends AppCompatActivity {
                                     ActivityConstants.defaultTimeOut);
                             result.putInt(ActivityConstants.keepalive,
                                     ActivityConstants.defaultKeepAlive);
-                            result.putBoolean(ActivityConstants.ssl,
-                                    ActivityConstants.defaultSsl);
 
                         }
                         //add result bundle to the data being returned to ClientConnections

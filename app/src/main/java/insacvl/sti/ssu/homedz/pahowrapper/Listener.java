@@ -168,45 +168,7 @@ public class Listener implements OnMenuItemClickListener {
 
     }
 
-    /**
-     * Subscribe to a topic that the user has specified
-     */
-    /*
-    private void subscribe()
-    {
-        String topic = ((EditText) connectionDetails.findViewById(R.id.topic)).getText().toString();
-        ((EditText) connectionDetails.findViewById(R.id.topic)).getText().clear();
-
-        RadioGroup radio = (RadioGroup) connectionDetails.findViewById(R.id.qosSubRadio);
-        int checked = radio.getCheckedRadioButtonId();
-        int qos = ActivityConstants.defaultQos;
-
-        switch (checked) {
-            case R.id.qos0 :
-                qos = 0;
-                break;
-            case R.id.qos1 :
-                qos = 1;
-                break;
-            case R.id.qos2 :
-                qos = 2;
-                break;
-        }
-
-        try {
-            String[] topics = new String[1];
-            topics[0] = topic;
-            Connections.getInstance(context).getConnection(clientHandle).getClient()
-                    .subscribe(topic, qos, null, new ActionListener(context, Action.SUBSCRIBE, clientHandle, topics));
-        }
-        catch (MqttSecurityException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + topic + " the client with the handle " + clientHandle, e);
-        }
-        catch (MqttException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + topic + " the client with the handle " + clientHandle, e);
-        }
-    }
-    */
+    //TODO : Gestion envoi message
     /**
      * Publish the message the user has specified
      */

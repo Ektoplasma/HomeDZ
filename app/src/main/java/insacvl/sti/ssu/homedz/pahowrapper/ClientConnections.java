@@ -283,9 +283,8 @@ public class ClientConnections extends AppCompatActivity {
         boolean cleanSession = (Boolean) data.get(ActivityConstants.cleanSession);
 
         boolean ssl = (Boolean) data.get(ActivityConstants.ssl);
-        String ssl_key = (String) data.get(ActivityConstants.ssl_key);
-//        Log.d("ClientConnections",ssl_key);
-       Log.d("ClientConnections","boolean ssl "+String.valueOf(ssl));
+
+        Log.d("ClientConnections","boolean ssl "+String.valueOf(ssl));
         String uri = null;
         if (ssl) {
             Log.e("SSLConnection", "Doing an SSL Connect");
@@ -302,31 +301,6 @@ public class ClientConnections extends AppCompatActivity {
         client = Connections.getInstance(this).createClient(this, uri, clientId);
 
         if (ssl){
-            if(ssl_key != null && !ssl_key.equalsIgnoreCase(""))
-            {
-
-
-                try {
-                    FileInputStream key = new FileInputStream(ssl_key);
-                SSLContext context;
-                KeyStore ts = KeyStore.getInstance("bks");
-                ts.load(key,
-                        "".toCharArray());
-                TrustManagerFactory tmf = TrustManagerFactory.getInstance("X509");
-                tmf.init(ts);
-                TrustManager[] tm = tmf.getTrustManagers();
-                context = SSLContext.getInstance("TLSv1.2");
-                context.init(null, tm, null);
-                 SocketFactory factory = context.getSocketFactory();
-                conOpt.setSocketFactory(factory);
-                    //conOpt.setSocketFactory(client.getSSLSocketFactory(key,
-                    //        ""));
-
-                } catch (Exception e) {
-                 // TODO: handle exception
-               }
-
-            }
             SSLContext sslContext = null;
             try {
                 sslContext = SSLContext.getInstance("TLSv1.2");
@@ -336,10 +310,6 @@ public class ClientConnections extends AppCompatActivity {
             } catch (KeyManagementException e) {
                 e.printStackTrace();
             }
-
-            /*Properties propo = new Properties();
-            propo.setProperty("com.ibm.ssl.protocol", "TLSv1");
-            conOpt.setSSLProperties(propo);*/
 
         }
 

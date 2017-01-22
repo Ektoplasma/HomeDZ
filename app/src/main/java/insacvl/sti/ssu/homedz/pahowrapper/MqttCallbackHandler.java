@@ -82,9 +82,6 @@ public class MqttCallbackHandler implements MqttCallback {
         //Get connection object associated with this object
         Connection c = Connections.getInstance(context).getConnection(clientHandle);
 
-        //transform message received to json
-        JSONObject jsonMessage = new JSONObject(new String(message.getPayload()));
-
         //create arguments to format message arrived notifcation string
         String[] args = new String[2];
         args[0] = new String(message.getPayload());
@@ -109,6 +106,11 @@ public class MqttCallbackHandler implements MqttCallback {
 
         //update client history
         c.addAction(messageString);
+
+        //transform message received to json
+        JSONObject jsonMessage = new JSONObject(new String(message.getPayload()));
+
+        //TODO : gérer l'action à effectuer à partir de la récéption de jsonMessage envoyé par le serveur DZ
 
     }
 
