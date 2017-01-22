@@ -140,7 +140,7 @@ public class ClientConnections extends AppCompatActivity {
                     // selected connection
                     Intent intent = new Intent();
                     intent.setClassName(getApplicationContext().getPackageName(),
-                            "insacvl.sti.ssu.homedz.pahowrapper.ConnectionDetails");
+                            "insacvl.sti.ssu.homedz.TabLayoutActivity");
                     intent.putExtra("handle", c.handle());
                     startActivity(intent);
                 //}

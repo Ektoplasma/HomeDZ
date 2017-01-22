@@ -96,6 +96,9 @@ public class ActivityConstants {
     /** Property name for the connection status field in {@link Connection} object for use with {@link java.beans.PropertyChangeEvent} **/
     static final String ConnectionStatusProperty = "connectionStatus";
 
+    /** Current connection handler **/
+    static public String currentHandler = "";
+
   /* Useful constants*/
 
     /** Space String Literal **/

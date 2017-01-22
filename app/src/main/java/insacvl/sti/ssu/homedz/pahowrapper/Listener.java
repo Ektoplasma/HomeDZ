@@ -38,6 +38,7 @@ import android.widget.RadioGroup;
 import insacvl.sti.ssu.homedz.pahowrapper.ActionListener.Action;
 import insacvl.sti.ssu.homedz.pahowrapper.Connection.ConnectionStatus;
 import org.eclipse.paho.android.service.MqttAndroidClient;
+import insacvl.sti.ssu.homedz.TabLayoutActivity;
 
 /**
  * Deals with actions performed in the {@link ClientConnections} activity
@@ -51,6 +52,8 @@ public class Listener implements OnMenuItemClickListener {
 
     /** {@link ConnectionDetails} reference used to perform some actions**/
     private ConnectionDetails connectionDetails = null;
+    /** {@link TabLayoutActivity} reference used to perform some actions**/
+    private TabLayoutActivity tabLayoutActivity = null;
     /** {@link ClientConnections} reference used to perform some actions**/
     private ClientConnections clientConnections = null;
     /** {@link Context} used to load and format strings **/
@@ -70,6 +73,14 @@ public class Listener implements OnMenuItemClickListener {
         this.connectionDetails = connectionDetails;
         this.clientHandle = clientHandle;
         context = connectionDetails;
+
+    }
+
+    public Listener(TabLayoutActivity tabLayoutActivity, String clientHandle)
+    {
+        this.tabLayoutActivity = tabLayoutActivity;
+        this.clientHandle = clientHandle;
+        context = this.tabLayoutActivity;
 
     }
 

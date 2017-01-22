@@ -27,6 +27,8 @@
 
         <activity android:name=".pahowrapper.ConnectionDetails"/>
 
+        <activity android:name=".TabLayoutActivity"/>
+
         <service android:name="org.eclipse.paho.android.service.MqttService" >
         </service>
     </application>

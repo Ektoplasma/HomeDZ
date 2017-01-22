@@ -1,13 +1,19 @@
 package insacvl.sti.ssu.homedz;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
+import android.util.Log;
+
+import insacvl.sti.ssu.homedz.pahowrapper.ActivityConstants;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
@@ -16,13 +22,19 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public TabsPagerAdapter(FragmentManager fm, Context c) {
         super(fm);
         context = c;
+
     }
 
     @Override
     public Fragment getItem(int position) {
         switch(position){
             case 0:
-                return new LogFragment();
+                Log.d("TabsPagerAdapter","ICI GETITEM OK");
+                Fragment fragment = new LogFragment();
+                Bundle args = new Bundle();
+                args.putString("handle", ActivityConstants.currentHandler);
+                fragment.setArguments(args);
+                return fragment;
             case 1:
                 return new LightFragment();
             case 2:
@@ -66,6 +78,9 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 
         return seq;
     }
+
+
+
 /*
     @Override
     public CharSequence getPageTitle(int position) {
