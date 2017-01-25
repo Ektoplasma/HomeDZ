@@ -288,12 +288,6 @@ public class ClientConnections extends AppCompatActivity {
         // create a client handle
         String clientHandle = uri + clientId;
 
-        // last will message
-        String message = (String) data.get(ActivityConstants.message);
-        String topic = (String) data.get(ActivityConstants.topic);
-        Integer qos = (Integer) data.get(ActivityConstants.qos);
-        Boolean retained = (Boolean) data.get(ActivityConstants.retained);
-
         // connection options
 
         String username = (String) data.get(ActivityConstants.username);
@@ -329,19 +323,6 @@ public class ClientConnections extends AppCompatActivity {
 
         boolean doConnect = true;
 
-        if ((!message.equals(ActivityConstants.empty))
-                || (!topic.equals(ActivityConstants.empty))) {
-            // need to make a message since last will is set
-            try {
-                conOpt.setWill(topic, message.getBytes(), qos.intValue(),
-                        retained.booleanValue());
-            }
-            catch (Exception e) {
-                Log.e(this.getClass().getCanonicalName(), "Exception Occured", e);
-                doConnect = false;
-                callback.onFailure(null, e);
-            }
-        }
         client.setCallback(new MqttCallbackHandler(this, clientHandle));
 
 

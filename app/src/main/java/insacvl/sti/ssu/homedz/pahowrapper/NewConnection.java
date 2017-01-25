@@ -137,8 +137,13 @@ public class NewConnection extends AppCompatActivity {
                                 .getText().toString();
                         String clientId = ((EditText) findViewById(R.id.clientId))
                                 .getText().toString();
+                        String username = ((EditText) findViewById(R.id.username))
+                                .getText().toString();
+                        String password = ((EditText) findViewById(R.id.password))
+                                .getText().toString();
 
-                        if (server.equals(ActivityConstants.empty) || port.equals(ActivityConstants.empty) || clientId.equals(ActivityConstants.empty))
+                        if (server.equals(ActivityConstants.empty) || port.equals(ActivityConstants.empty) || clientId.equals(ActivityConstants.empty)
+                            || username.equals(ActivityConstants.empty) || password.equals(ActivityConstants.empty))
                         {
                             String notificationText = newConnection.getString(R.string.missingOptions);
                             Notify.toast(newConnection, notificationText, Toast.LENGTH_LONG);
@@ -157,6 +162,8 @@ public class NewConnection extends AppCompatActivity {
                         dataBundle.putExtra(ActivityConstants.action, ActivityConstants.connect);
                         dataBundle.putExtra(ActivityConstants.ssl, ssl);
                         dataBundle.putExtra(ActivityConstants.cleanSession, cleanSession);
+                        dataBundle.putExtra(ActivityConstants.username, username);
+                        dataBundle.putExtra(ActivityConstants.password, password);
 
                         if (result == null) {
                             // create a new bundle and put default advanced options into a bundle
@@ -168,11 +175,6 @@ public class NewConnection extends AppCompatActivity {
                             result.putInt(ActivityConstants.qos, ActivityConstants.defaultQos);
                             result.putBoolean(ActivityConstants.retained,
                                     ActivityConstants.defaultRetained);
-
-                            result.putString(ActivityConstants.username,
-                                    ActivityConstants.empty);
-                            result.putString(ActivityConstants.password,
-                                    ActivityConstants.empty);
 
                             result.putInt(ActivityConstants.timeout,
                                     ActivityConstants.defaultTimeOut);
