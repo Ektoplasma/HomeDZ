@@ -16,6 +16,7 @@ package insacvl.sti.ssu.homedz.pahowrapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
@@ -265,10 +266,44 @@ public class Persistence extends SQLiteOpenHelper implements BaseColumns {
                 opts.setWill(topic, message.getBytes(), qos, retained);
             }
 
+            String uri = null;
+
+            if (ssl) {
+                uri = "ssl://";
+
+            }
+            else {
+                uri = "tcp://";
+            }
+
+            uri = uri + host + ":" + port;
+
             //now create the connection object
-            connection = Connection.createConnection(clientID, host, port, context, ssl);
+            String clientHandle = uri + clientID;
+
+            MqttAndroidClient client;
+            client = new MqttAndroidClient(context, uri, clientID);
+
+            connection = new Connection(clientHandle, clientID, host, port,
+                    context, client, ssl);
+
+            String[] actionArgs = new String[1];
+            actionArgs[0] = clientID;
+
+            final ActionListener callback = new ActionListener(context,
+                    ActionListener.Action.CONNECT, clientHandle, actionArgs);
+
+            boolean doConnect = true;
+
+            client.setCallback(new MqttCallbackHandler(context, clientHandle));
+
+
+            //set traceCallback
+            client.setTraceCallback(new MqttTraceCallback());
+            //connection = Connection.createConnection(clientID, host, port, context, ssl);
             connection.addConnectionOptions(opts);
             connection.assignPersistenceId(id);
+
             //store it in the list
             list.add(connection);
 

@@ -105,7 +105,7 @@ public class ClientConnections extends AppCompatActivity {
         connectionList.setAdapter(arrayAdapter);
 
         // get all the available connections
-        Map<String, Connection> connections = Connections.getInstance(this)
+        Map<String, Connection> connections = Connections.getInstance(getApplicationContext())
                 .getConnections();
 
         if (connections != null) {
@@ -119,10 +119,8 @@ public class ClientConnections extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Log.d("ClientConnections", "OUI");
                 //if (!contextualActionBarActive) {
                     Connection c = arrayAdapter.getItem(position);
-                    Log.d("ClientConnections", "OUIOUI");
 
                     try {
                         String[] topics = new String[1];
@@ -464,7 +462,7 @@ public class ClientConnections extends AppCompatActivity {
      *
      *
      */
-    private class ChangeListener implements PropertyChangeListener {
+    public class ChangeListener implements PropertyChangeListener {
 
         /**
          * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
