@@ -42,7 +42,7 @@ import insacvl.sti.ssu.homedz.TabLayoutActivity;
 
 /**
  * Deals with actions performed in the {@link ClientConnections} activity
- * and the {@link ConnectionDetails} activity and associated fragments
+ * and the {@link TabLayoutActivity} activity and associated fragments
  *
  */
 public class Listener implements OnMenuItemClickListener {
@@ -50,8 +50,6 @@ public class Listener implements OnMenuItemClickListener {
     /** The handle to a {@link Connection} object which contains the {@link MqttAndroidClient} associated with this object **/
     private String clientHandle = null;
 
-    /** {@link ConnectionDetails} reference used to perform some actions**/
-    private ConnectionDetails connectionDetails = null;
     /** {@link TabLayoutActivity} reference used to perform some actions**/
     private TabLayoutActivity tabLayoutActivity = null;
     /** {@link ClientConnections} reference used to perform some actions**/
@@ -63,18 +61,11 @@ public class Listener implements OnMenuItemClickListener {
     static boolean logging = false;
 
     /**
-     * Constructs a listener object for use with {@link ConnectionDetails} activity and
+     * Constructs a listener object for use with {@link TabLayoutActivity} activity and
      * associated fragments.
-     * @param connectionDetails The instance of {@link ConnectionDetails}
+     * @param tabLayoutActivity The instance of {@link TabLayoutActivity}
      * @param clientHandle The handle to the client that the actions are to be performed on
      */
-    public Listener(ConnectionDetails connectionDetails, String clientHandle)
-    {
-        this.connectionDetails = connectionDetails;
-        this.clientHandle = clientHandle;
-        context = connectionDetails;
-
-    }
 
     public Listener(TabLayoutActivity tabLayoutActivity, String clientHandle)
     {

@@ -19,7 +19,7 @@ import insacvl.sti.ssu.homedz.pahowrapper.Listener;
 
 public class TabLayoutActivity extends AppCompatActivity {
 
-    /** This instance of <code>ConnectionDetails</code> **/
+    /** This instance of <code>TabLayoutActivity</code> **/
     private final TabLayoutActivity tabLayoutActivity = this;
 
     /**
