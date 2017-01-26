@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 
@@ -51,7 +52,9 @@ public class Connections {
         persistence = new Persistence(context);
         try {
             List<Connection> l = persistence.restoreConnections(context);
+
             for (Connection c : l) {
+                System.out.println(c.handle());
                 connections.put(c.handle(), c);
             }
         }
@@ -83,8 +86,10 @@ public class Connections {
      */
     public Connection getConnection(String handle)
     {
-
-        return connections.get(handle);
+        Log.d("Connections",handle);
+        Connection coco = connections.get(handle);
+        Log.d("Connections",coco.toString());
+        return coco;
     }
 
     /**

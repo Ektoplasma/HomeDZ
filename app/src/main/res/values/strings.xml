@@ -57,7 +57,7 @@
     <string name="title_activity_connection_details">Connection Details</string>
     <string name="startLogging">Enable Logging</string>
     <string name="endLogging">Disable Logging</string>
-    <string name="missingOptions">ClientID, server address or Port number is missing. Please correct or press back arrow cancel.</string>
+    <string name="missingOptions">ClientID, server address, Port number, username or password is missing. Please correct or press back arrow cancel.</string>
 
     <string name='dateFormat'>dd/MM/yy \'at\' HH:mm:ss</string>
     <string name="unkown_error">Unknown Error</string>

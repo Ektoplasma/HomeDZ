@@ -105,7 +105,7 @@ public class ClientConnections extends AppCompatActivity {
         connectionList.setAdapter(arrayAdapter);
 
         // get all the available connections
-        Map<String, Connection> connections = Connections.getInstance(this)
+        Map<String, Connection> connections = Connections.getInstance(getApplicationContext())
                 .getConnections();
 
         if (connections != null) {
@@ -119,10 +119,8 @@ public class ClientConnections extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Log.d("ClientConnections", "OUI");
                 //if (!contextualActionBarActive) {
                     Connection c = arrayAdapter.getItem(position);
-                    Log.d("ClientConnections", "OUIOUI");
 
                     try {
                         String[] topics = new String[1];
@@ -176,34 +174,6 @@ public class ClientConnections extends AppCompatActivity {
         return true;
     }
 
-    /**
-     * Listens for item clicks on the view
-     *
-     * @param listView
-     *            The list view where the click originated from
-     * @param view
-     *            The view which was clicked
-     * @param position
-     *            The position in the list that was clicked
-     *//*
-    @Override
-    protected void onListItemClick(ListView listView, View view, int position,
-                                   long id) {
-        super.onListItemClick(listView, view, position, id);
-
-        if (!contextualActionBarActive) {
-            Connection c = arrayAdapter.getItem(position);
-
-            // start the connectionDetails activity to display the details about the
-            // selected connection
-            Intent intent = new Intent();
-            intent.setClassName(getApplicationContext().getPackageName(),
-                    "insacvl.sti.ssu.homedz.pahowrapper.ConnectionDetails");
-            intent.putExtra("handle", c.handle());
-            startActivity(intent);
-        }
-
-    }*/
     /**
      * @see AppCompatActivity#onActivityResult(int,int,Intent)
      */
@@ -316,12 +286,6 @@ public class ClientConnections extends AppCompatActivity {
         // create a client handle
         String clientHandle = uri + clientId;
 
-        // last will message
-        String message = (String) data.get(ActivityConstants.message);
-        String topic = (String) data.get(ActivityConstants.topic);
-        Integer qos = (Integer) data.get(ActivityConstants.qos);
-        Boolean retained = (Boolean) data.get(ActivityConstants.retained);
-
         // connection options
 
         String username = (String) data.get(ActivityConstants.username);
@@ -357,19 +321,6 @@ public class ClientConnections extends AppCompatActivity {
 
         boolean doConnect = true;
 
-        if ((!message.equals(ActivityConstants.empty))
-                || (!topic.equals(ActivityConstants.empty))) {
-            // need to make a message since last will is set
-            try {
-                conOpt.setWill(topic, message.getBytes(), qos.intValue(),
-                        retained.booleanValue());
-            }
-            catch (Exception e) {
-                Log.e(this.getClass().getCanonicalName(), "Exception Occured", e);
-                doConnect = false;
-                callback.onFailure(null, e);
-            }
-        }
         client.setCallback(new MqttCallbackHandler(this, clientHandle));
 
 
@@ -511,7 +462,7 @@ public class ClientConnections extends AppCompatActivity {
      *
      *
      */
-    private class ChangeListener implements PropertyChangeListener {
+    public class ChangeListener implements PropertyChangeListener {
 
         /**
          * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)

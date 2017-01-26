@@ -24,6 +24,8 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
+
 import org.eclipse.paho.android.service.MqttAndroidClient;
 
 /**
@@ -107,7 +109,11 @@ public class Connection {
             uri = "tcp://" + host + ":" + port;
             handle = uri + clientId;
         }
+        Log.d("Connection",context.toString());
+        Log.d("Connection",uri);
+        Log.d("Connection",clientId);
         MqttAndroidClient client = new MqttAndroidClient(context, uri, clientId);
+        Log.d("Connection",client.toString());
         return new Connection(handle, clientId, host, port, context, client, sslConnection);
 
     }
@@ -308,6 +314,7 @@ public class Connection {
      * @return the client which communicates with the android service
      */
     public MqttAndroidClient getClient() {
+        Log.d("Connectio",client.toString());
         return client;
     }
 
