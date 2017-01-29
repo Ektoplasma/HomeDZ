@@ -30,6 +30,8 @@ public class JsonDz {
     private String title;
     private int favorite;
     private int hardwareID;
+
+
     private String lastUpdate;
     private String status;
     private String timers;
@@ -167,6 +169,56 @@ public class JsonDz {
     }
 
     ////////////////////////////// getters //////////////////////////////////
+
+    public int getHardwareID() {
+        return hardwareID;
+    }
+
+    public String getIsDimmer() {
+        return isDimmer;
+    }
+
+    public JSONObject getJson() {
+        return json;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public String getServerTime() {
+        return serverTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getSubtype() {
+        return subtype;
+    }
+
+    public String getSunrise() {
+        return sunrise;
+    }
+
+    public String getSunset() {
+        return sunset;
+    }
+
+    public String getTimers() {
+        return timers;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getFavorite() {
+
+        return favorite;
+    }
+
 
     public int getRssi() {
         return rssi;
