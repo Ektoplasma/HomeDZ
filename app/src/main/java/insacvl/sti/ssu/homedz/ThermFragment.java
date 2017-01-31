@@ -5,53 +5,46 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class ThermFragment extends Fragment {
-
-    public int nombre = 0;
-    public boolean off = true;
-    ImageView iv1, iv2, iv3;
-    TextView tv1, tv2, tv3, tvtest;
-    LinearLayout linLay1, linLay2, linLay3;
 
     public ThermFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.z_fragment_therm_layout, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_list_obat, container, false);
 
-        linLay1 = (LinearLayout)rootView.findViewById(R.id.ln1);
-        linLay2 = (LinearLayout)rootView.findViewById(R.id.ln2);
-        linLay3 = (LinearLayout)rootView.findViewById(R.id.ln3);
+        ArrayList<ItemDetails> image_details = GetSearchResults();
 
-        linLay1.setVisibility(View.INVISIBLE);
-        linLay2.setVisibility(View.INVISIBLE);
-        linLay3.setVisibility(View.INVISIBLE);
-
-        Button bAdd = (Button)rootView.findViewById(R.id.bAdd);
-        bAdd.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                switch(nombre){
-                    case 0:
-                        linLay1.setVisibility(View.VISIBLE);
-                        break;
-                    case 1:
-                        linLay2.setVisibility(View.VISIBLE);
-                        break;
-                    case 2:
-                        linLay3.setVisibility(View.VISIBLE);
-                        break;
-                }
-                nombre ++;
-            }
-        });
+        final ListView lv1 = (ListView)rootView.findViewById(R.id.listView);
+        lv1.setAdapter(new ItemListBaseAdapterTherm(getContext(), image_details));
 
         return rootView;
+    }
+
+    private ArrayList<ItemDetails> GetSearchResults() {
+        ArrayList<ItemDetails> results = new ArrayList<ItemDetails>();
+
+        ItemDetails item_details = new ItemDetails();
+        item_details.setName("Thermo1");
+        item_details.setId("1");
+        item_details.setDesc("Je suis un thermometre");
+        item_details.setVal(0);
+        item_details.setImageNumber(R.drawable.therm_64);
+        results.add(item_details);
+
+        item_details = new ItemDetails();
+        item_details.setName("Thermo2");
+        item_details.setId("2");
+        item_details.setDesc("Je suis un thermometre");
+        item_details.setVal(0);
+        item_details.setImageNumber(R.drawable.therm_64);
+        results.add(item_details);
+
+        return results;
     }
 }

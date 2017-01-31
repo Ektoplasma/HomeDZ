@@ -9,7 +9,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 
-
 public class LightFragment extends Fragment {
 
     public LightFragment() {
@@ -22,7 +21,7 @@ public class LightFragment extends Fragment {
         ArrayList<ItemDetails> image_details = GetSearchResults();
 
         final ListView lv1 = (ListView)rootView.findViewById(R.id.listView);
-        lv1.setAdapter(new ItemListBaseAdapter(getContext(), image_details));
+        lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), image_details));
 
         return rootView;
     }
@@ -33,12 +32,16 @@ public class LightFragment extends Fragment {
         ItemDetails item_details = new ItemDetails();
         item_details.setName("Light1");
         item_details.setId("1");
+        item_details.setDesc("Je suis une lumière");
+        item_details.setVal(0);
         item_details.setImageNumber(R.drawable.lightbulb_icon_off64);
         results.add(item_details);
 
         item_details = new ItemDetails();
         item_details.setName("Light2");
         item_details.setId("2");
+        item_details.setDesc("Je suis une lumière");
+        item_details.setVal(0);
         item_details.setImageNumber(R.drawable.lightbulb_icon_off64);
         results.add(item_details);
 

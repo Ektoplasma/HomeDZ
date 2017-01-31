@@ -17,7 +17,18 @@ public class ItemDetails {
     public void setId(String itemDescription) {
         this.id = itemDescription;
     }
-
+    public int getVal() {
+        return val;
+    }
+    public void setVal(int valeur) {
+        this.val = valeur;
+    }
+    public String getDesc() {
+        return description;
+    }
+    public void setDesc(String desc){
+        description = desc;
+    }
     public int getImageNumber() {
         return imageNumber;
     }
@@ -25,7 +36,9 @@ public class ItemDetails {
         this.imageNumber = imageNumber;
     }
 
+    private String description;
     private String name ;
     private String id;
     private int imageNumber;
+    private int val;
 }
