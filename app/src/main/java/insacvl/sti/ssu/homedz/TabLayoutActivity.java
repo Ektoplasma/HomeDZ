@@ -25,7 +25,7 @@ public class TabLayoutActivity extends AppCompatActivity {
     /**
      * {@link TabsPagerAdapter} that is used to get pages to display
      */
-    TabsPagerAdapter tabsPagerAdapter;
+    public static TabsPagerAdapter tabsPagerAdapter;
     /**
      * The handle to the {@link Connection} which holds the data for the client
      * selected
@@ -204,6 +204,8 @@ public class TabLayoutActivity extends AppCompatActivity {
 
                     tabLayoutActivity.invalidateOptionsMenu();
                     ((LogFragment) tabsPagerAdapter.getItem(0)).refresh();
+                    ((LightFragment) tabsPagerAdapter.getItem(1)).refreshl();
+
 
                 }
             });

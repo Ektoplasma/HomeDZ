@@ -2,14 +2,19 @@ package insacvl.sti.ssu.homedz;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
 
 
 public class LightFragment extends Fragment {
+
+    private ListView lv1 = null;
+    private ArrayList<ItemDetails> tableau;
 
     public LightFragment() {
     }
@@ -20,12 +25,12 @@ public class LightFragment extends Fragment {
 
         ArrayList<ItemDetails> image_details = GetSearchResults();
 
-        final ListView lv1 = (ListView)rootView.findViewById(R.id.listView);
+        lv1 = (ListView)rootView.findViewById(R.id.listView);
         lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), image_details));
 
         return rootView;
     }
-
+    // ne sert plus à rien, c'est dans JsonDZ
     private ArrayList<ItemDetails> GetSearchResults() {
         ArrayList<ItemDetails> results = new ArrayList<ItemDetails>();
 
@@ -46,5 +51,25 @@ public class LightFragment extends Fragment {
         results.add(item_details);
 
         return results;
+    }
+
+    /**
+     * Updates the data
+     */
+    public void refreshl() {
+        //Initialise the arrayAdapter, view and add data
+
+        if (lv1 != null) {
+            Log.d("LightFragmentFragment","REFRESH OK");
+
+            lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
+            //lv1.deferNotifyDataSetChanged();
+        }
+
+    }
+
+    public void addItemDetails(ItemDetails bleh) {
+
+        tableau.add(bleh);
     }
 }

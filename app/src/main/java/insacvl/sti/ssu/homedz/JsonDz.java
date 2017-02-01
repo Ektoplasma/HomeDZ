@@ -160,9 +160,14 @@ public class JsonDz {
         switch(dtype){
             case "Temp":
                 //Update ThermFragment
+
                 break;
             case "LightSwitch":
-                //Update LightFragment
+              /*  //Update LightFragment
+                      //si nouveau
+                ItemDetails bleh = new ItemDetails();
+                //...
+                ((LightFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).addItemDetails(bleh);*/
                 break;
 
         }
