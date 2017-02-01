@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class LightFragment extends Fragment {
@@ -36,7 +37,7 @@ public class LightFragment extends Fragment {
 
         ItemDetails item_details = new ItemDetails();
         item_details.setName("Light1");
-        item_details.setId("1");
+        item_details.setId(1);
         item_details.setDesc("Je suis une lumière");
         item_details.setVal(0);
         item_details.setImageNumber(R.drawable.lightbulb_icon_off64);
@@ -44,7 +45,7 @@ public class LightFragment extends Fragment {
 
         item_details = new ItemDetails();
         item_details.setName("Light2");
-        item_details.setId("2");
+        item_details.setId(2);
         item_details.setDesc("Je suis une lumière");
         item_details.setVal(0);
         item_details.setImageNumber(R.drawable.lightbulb_icon_off64);
@@ -63,7 +64,7 @@ public class LightFragment extends Fragment {
             Log.d("LightFragmentFragment","REFRESH OK");
 
             lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
-            //lv1.deferNotifyDataSetChanged();
+            lv1.deferNotifyDataSetChanged();
         }
 
     }
@@ -71,5 +72,16 @@ public class LightFragment extends Fragment {
     public void addItemDetails(ItemDetails bleh) {
 
         tableau.add(bleh);
+        refreshl();
+    }
+
+    public boolean isNew(int id){
+        boolean hasNew = false;
+        Iterator<ItemDetails> it = tableau.iterator();
+        while(it.hasNext() && hasNew == false){
+            if(it.next().getId() != id)
+                hasNew = true;
+        }
+        return hasNew;
     }
 }

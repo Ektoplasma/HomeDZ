@@ -11,10 +11,10 @@ public class ItemDetails {
     public void setName(String name) {
         this.name = name;
     }
-    public String getId() {
+    public int getId() {
         return id;
     }
-    public void setId(String itemDescription) {
+    public void setId(int itemDescription) {
         this.id = itemDescription;
     }
     public int getVal() {
@@ -38,7 +38,7 @@ public class ItemDetails {
 
     private String description;
     private String name ;
-    private String id;
+    private int id;
     private int imageNumber;
     private int val;
 }

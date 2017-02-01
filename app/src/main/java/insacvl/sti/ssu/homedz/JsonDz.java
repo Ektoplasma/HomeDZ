@@ -157,17 +157,23 @@ public class JsonDz {
             dtype = "LightSwitch";
         }
         // Switch sur dtype pour savoir quel fragment updater
+        boolean hasNew = false;
         switch(dtype){
             case "Temp":
                 //Update ThermFragment
 
                 break;
             case "LightSwitch":
-              /*  //Update LightFragment
-                      //si nouveau
-                ItemDetails bleh = new ItemDetails();
-                //...
-                ((LightFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).addItemDetails(bleh);*/
+                //Update LightFragment
+                if(((LightFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).isNew(MyIdx)){
+                    ItemDetails bleh = new ItemDetails();
+                    bleh.setDesc("Je suis une lampe");
+                    bleh.setId(MyIdx);
+                    bleh.setName("Lampe");
+                    bleh.setVal(0);
+                    bleh.setImageNumber(R.drawable.lightbulb_icon_off64);
+                    ((LightFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).addItemDetails(bleh);
+                }
                 break;
 
         }

@@ -47,7 +47,7 @@ public class ItemListBaseAdapterTherm extends BaseAdapter {
         }
 
         holder.txt_itemName.setText(itemDetailsrrayList.get(position).getName());
-        holder.txt_id.setText(itemDetailsrrayList.get(position).getId());
+        holder.txt_id.setText(Integer.toString(itemDetailsrrayList.get(position).getId()));
         holder.img_item.setImageResource(itemDetailsrrayList.get(position).getImageNumber());
         holder.txt_desc.setText(itemDetailsrrayList.get(position).getDesc());
         holder.txt_val.setText(Integer.toString(itemDetailsrrayList.get(position).getVal()));
