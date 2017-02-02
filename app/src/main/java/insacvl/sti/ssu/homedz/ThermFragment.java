@@ -31,7 +31,7 @@ public class ThermFragment extends Fragment {
 
         ItemDetails item_details = new ItemDetails();
         item_details.setName("Thermo1");
-        item_details.setId("1");
+        item_details.setId(1);
         item_details.setDesc("Je suis un thermometre");
         item_details.setVal(0);
         item_details.setImageNumber(R.drawable.therm_64);
@@ -39,7 +39,7 @@ public class ThermFragment extends Fragment {
 
         item_details = new ItemDetails();
         item_details.setName("Thermo2");
-        item_details.setId("2");
+        item_details.setId(2);
         item_details.setDesc("Je suis un thermometre");
         item_details.setVal(0);
         item_details.setImageNumber(R.drawable.therm_64);
