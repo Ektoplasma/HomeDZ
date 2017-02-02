@@ -60,7 +60,7 @@ public class LightFragment extends Fragment {
     public void refreshl() {
         //Initialise the arrayAdapter, view and add data
 
-        if (lv1 != null) {
+        if (lv1 != null && tableau != null) {
             Log.d("LightFragment","REFRESH OK");
 
             lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
