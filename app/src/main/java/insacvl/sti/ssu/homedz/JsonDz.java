@@ -156,12 +156,23 @@ public class JsonDz {
         if (Pattern.matches("Light*", dtype) == true){
             dtype = "LightSwitch";
         }
+        else if(Pattern.matches("Therm*", dtype) == true || Pattern.matches("Temp*", dtype) == true){
+            dtype = "Temp";
+        }
         // Switch sur dtype pour savoir quel fragment updater
         boolean hasNew = false;
         switch(dtype){
             case "Temp":
                 //Update ThermFragment
-
+                if(((LightFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).isNew(MyIdx)){
+                    ItemDetails bleh = new ItemDetails();
+                    bleh.setDesc("Je suis un thermometre");
+                    bleh.setId(MyIdx);
+                    bleh.setName("Thermo");
+                    bleh.setVal(0);
+                    bleh.setImageNumber(R.drawable.therm_64);
+                    ((ThermFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).addItemDetails(bleh);
+                }
                 break;
             case "LightSwitch":
                 //Update LightFragment

@@ -24,15 +24,15 @@ public class LightFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_list_obat, container, false);
 
-        ArrayList<ItemDetails> image_details = GetSearchResults();
+        //ArrayList<ItemDetails> image_details = GetSearchResults();
 
         lv1 = (ListView)rootView.findViewById(R.id.listView);
-        lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), image_details));
+        lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
 
         return rootView;
     }
     // ne sert plus à rien, c'est dans JsonDZ
-    private ArrayList<ItemDetails> GetSearchResults() {
+   /* private ArrayList<ItemDetails> GetSearchResults() {
         ArrayList<ItemDetails> results = new ArrayList<ItemDetails>();
 
         ItemDetails item_details = new ItemDetails();
@@ -53,7 +53,7 @@ public class LightFragment extends Fragment {
 
         return results;
     }
-
+*/
     /**
      * Updates the data
      */
@@ -61,7 +61,7 @@ public class LightFragment extends Fragment {
         //Initialise the arrayAdapter, view and add data
 
         if (lv1 != null) {
-            Log.d("LightFragmentFragment","REFRESH OK");
+            Log.d("LightFragment","REFRESH OK");
 
             lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
             lv1.deferNotifyDataSetChanged();
