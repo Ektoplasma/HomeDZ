@@ -13,6 +13,7 @@ package insacvl.sti.ssu.homedz.pahowrapper;
  *   http://www.eclipse.org/org/documents/edl-v10.php.
  */
 
+import insacvl.sti.ssu.homedz.JsonDz;
 import insacvl.sti.ssu.homedz.R;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -111,6 +112,7 @@ public class MqttCallbackHandler implements MqttCallback {
         JSONObject jsonMessage = new JSONObject(new String(message.getPayload()));
 
         //TODO : gérer l'action à effectuer à partir de la récéption de jsonMessage envoyé par le serveur DZ
+        JsonDz jsondz = new JsonDz(jsonMessage);
 
     }
 
