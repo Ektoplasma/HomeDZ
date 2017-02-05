@@ -27,14 +27,14 @@ import insacvl.sti.ssu.homedz.R;
  * {@link MqttAndroidClient} and updating the {@link Connection} associated with
  * the action
  */
-class ActionListener implements IMqttActionListener {
+public class ActionListener implements IMqttActionListener {
 
     /**
      * Actions that can be performed Asynchronously <strong>and</strong> associated with a
      * {@link ActionListener} object
      *
      */
-    enum Action {
+    public enum Action {
         /** Connect Action **/
         CONNECT,
         /** Disconnect Action **/

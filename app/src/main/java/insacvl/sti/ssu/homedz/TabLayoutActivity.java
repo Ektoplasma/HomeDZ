@@ -69,39 +69,6 @@ public class TabLayoutActivity extends AppCompatActivity {
         pager.setAdapter(tabsPagerAdapter);
         tabs.setupWithViewPager(pager);
 
-        /*final ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrollStateChanged(int arg0) { }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) { }
-
-            @Override
-            public void onPageSelected(int position) {
-
-                // When the given tab is selected, switch to the corresponding page in
-                // the ViewPager.
-                pager.setCurrentItem(position);
-                selected = position;
-                // invalidate the options menu so it can be updated
-                invalidateOptionsMenu();
-                // history fragment is at position zero so get this then refresh its
-                // view
-                ((LogFragment) tabsPagerAdapter.getItem(0)).refresh();
-            }
-        };
-
-        pager.addOnPageChangeListener(pageChangeListener);
-        // do this in a runnable to make sure the viewPager's views are already instantiated before triggering the onPageSelected call
-        pager.post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                pageChangeListener .onPageSelected(pager.getCurrentItem());
-            }
-        });*/
-
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -205,11 +172,16 @@ public class TabLayoutActivity extends AppCompatActivity {
                     tabLayoutActivity.invalidateOptionsMenu();
                     ((LogFragment) tabsPagerAdapter.getItem(0)).refresh();
                     ((LightFragment) tabsPagerAdapter.getItem(1)).refreshl();
-
+                    ((ThermFragment) tabsPagerAdapter.getItem(2)).refresht();
 
                 }
             });
 
+        }
+
+        @Override
+        protected void finalize() throws Throwable {
+            super.finalize();
         }
     }
 

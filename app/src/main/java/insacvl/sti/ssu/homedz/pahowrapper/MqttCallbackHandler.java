@@ -13,6 +13,7 @@ package insacvl.sti.ssu.homedz.pahowrapper;
  *   http://www.eclipse.org/org/documents/edl-v10.php.
  */
 
+import insacvl.sti.ssu.homedz.JsonDz;
 import insacvl.sti.ssu.homedz.R;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -21,6 +22,8 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+
 import insacvl.sti.ssu.homedz.pahowrapper.Connection.ConnectionStatus;
 
 /**
@@ -82,6 +85,13 @@ public class MqttCallbackHandler implements MqttCallback {
         //Get connection object associated with this object
         Connection c = Connections.getInstance(context).getConnection(clientHandle);
 
+        String msg = new String(message.getPayload());
+        Log.d("MqttCallbackHandler","Message received :"+msg);
+
+        //transform message received to json
+        JSONObject jsonMessage = new JSONObject(msg);
+
+
         //create arguments to format message arrived notifcation string
         String[] args = new String[2];
         args[0] = new String(message.getPayload());
@@ -107,10 +117,10 @@ public class MqttCallbackHandler implements MqttCallback {
         //update client history
         c.addAction(messageString);
 
-        //transform message received to json
-        JSONObject jsonMessage = new JSONObject(new String(message.getPayload()));
-
+        Log.d("MqttCallbackHandler",jsonMessage.getString("name"));
         //TODO : gérer l'action à effectuer à partir de la récéption de jsonMessage envoyé par le serveur DZ
+        JsonDz jsondz = new JsonDz(jsonMessage);
+        jsondz.updateView(jsondz.getDtype());
 
     }
 

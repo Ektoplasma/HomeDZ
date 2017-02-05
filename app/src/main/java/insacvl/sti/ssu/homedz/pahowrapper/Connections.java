@@ -37,8 +37,6 @@ public class Connections {
     /** List of {@link Connection} objects**/
     private HashMap<String, Connection> connections = null;
 
-    /** {@link Persistence} object used to save, delete and restore connections**/
-    private Persistence persistence = null;
 
     /**
      * Create a Connections object
@@ -47,20 +45,6 @@ public class Connections {
     private Connections(Context context)
     {
         connections = new HashMap<>();
-
-        //attempt to restore state
-        persistence = new Persistence(context);
-        try {
-            List<Connection> l = persistence.restoreConnections(context);
-
-            for (Connection c : l) {
-                System.out.println(c.handle());
-                connections.put(c.handle(), c);
-            }
-        }
-        catch (PersistenceException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -99,14 +83,6 @@ public class Connections {
     public void addConnection(Connection connection)
     {
         connections.put(connection.handle(), connection);
-        try {
-            persistence.persistConnection(connection);
-        }
-        catch (PersistenceException e)
-        {
-            //error persisting well lets just swallow this
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -136,7 +112,7 @@ public class Connections {
      */
     public void removeConnection(Connection connection) {
         connections.remove(connection.handle());
-        persistence.deleteConnection(connection);
+
     }
 
 }

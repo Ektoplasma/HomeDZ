@@ -1,6 +1,7 @@
 package insacvl.sti.ssu.homedz;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +16,7 @@ import java.util.Iterator;
 public class LightFragment extends Fragment {
 
     private ListView lv1 = null;
-    private ArrayList<ItemDetails> tableau;
+    private ArrayList<ItemDetails> tableau = new ArrayList<ItemDetails>();
 
     public LightFragment() {
     }
@@ -24,15 +25,15 @@ public class LightFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_list_obat, container, false);
 
-        ArrayList<ItemDetails> image_details = GetSearchResults();
+        //ArrayList<ItemDetails> image_details = GetSearchResults();
 
         lv1 = (ListView)rootView.findViewById(R.id.listView);
-        lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), image_details));
+        lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
 
         return rootView;
     }
     // ne sert plus à rien, c'est dans JsonDZ
-    private ArrayList<ItemDetails> GetSearchResults() {
+   /* private ArrayList<ItemDetails> GetSearchResults() {
         ArrayList<ItemDetails> results = new ArrayList<ItemDetails>();
 
         ItemDetails item_details = new ItemDetails();
@@ -53,35 +54,59 @@ public class LightFragment extends Fragment {
 
         return results;
     }
-
+*/
     /**
      * Updates the data
      */
     public void refreshl() {
         //Initialise the arrayAdapter, view and add data
 
-        if (lv1 != null) {
-            Log.d("LightFragmentFragment","REFRESH OK");
+        if (lv1 != null && tableau != null) {
 
-            lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
-            lv1.deferNotifyDataSetChanged();
+            // si l'activité n'a pas encore démarré, ajouter un délai
+            if(getContext() == null)
+            {
+                Runnable task = new Runnable() {
+                    public void run() {
+                        Log.d("LightFragment","REFRESH OK");
+                        Log.d("LightFragment", tableau.toString());
+                        lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
+                        lv1.deferNotifyDataSetChanged();
+                    }
+                };
+
+                Handler handler = new Handler();
+                handler.postDelayed(task, 1000);
+
+            }
+            else {
+                Log.d("LightFragment", "REFRESH OK");
+
+                lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
+                lv1.deferNotifyDataSetChanged();
+            }
+
         }
 
     }
 
     public void addItemDetails(ItemDetails bleh) {
-
         tableau.add(bleh);
         refreshl();
     }
 
     public boolean isNew(int id){
+
         boolean hasNew = false;
         Iterator<ItemDetails> it = tableau.iterator();
-        while(it.hasNext() && hasNew == false){
-            if(it.next().getId() != id)
-                hasNew = true;
+        if(!it.hasNext()) hasNew = true;
+        else{
+            while(it.hasNext() && hasNew == false){
+                if(it.next().getId() != id)
+                    hasNew = true;
+            }
         }
+
         return hasNew;
     }
 }
