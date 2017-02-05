@@ -174,6 +174,28 @@ public class Listener implements OnMenuItemClickListener {
     /**
      * Publish the message the user has specified
      */
+
+    private void get_idx_info(int idx){
+        String topic = "domoticz/in";
+        int qos = ActivityConstants.defaultQos;
+
+        String message = new String("{\"command\": \"getdeviceinfo\", \"idx\": "+idx+" }");
+
+        String[] args = new String[2];
+        args[0] = message;
+        args[1] = topic+";qos:"+qos+";retained:"+"false";
+
+        try {
+            Connections.getInstance(context).getConnection(clientHandle).getClient().publish(topic, message.getBytes(), qos, false, null, new ActionListener(context, Action.PUBLISH, clientHandle, args));
+        }
+        catch (MqttSecurityException e) {
+            Log.e(this.getClass().getCanonicalName(), "Failed to publish a messged from the client with the handle " + clientHandle, e);
+        }
+        catch (MqttException e) {
+            Log.e(this.getClass().getCanonicalName(), "Failed to publish a messged from the client with the handle " + clientHandle, e);
+        }
+    }
+
     /*
     private void publish()
     {
