@@ -1,6 +1,7 @@
 package insacvl.sti.ssu.homedz;
 
 import android.hardware.camera2.params.StreamConfigurationMap;
+import android.util.Log;
 import android.widget.Toast;
 import java.util.regex.Pattern;
 import org.json.JSONException;
@@ -66,68 +67,57 @@ public class JsonDz {
     /* remplit les différents attributs */
     private void filler() throws JSONException {
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("idx");
-            this.idx = jsonIdx.getInt("idx");
+            this.idx = this.json.getInt("idx");
         } catch (JSONException e) {
             System.out.println("No idx");
         }
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("name");
-            this.name = jsonIdx.getString("name");
+            this.name = this.json.getString("name");
         } catch (JSONException e) {
             System.out.println("No name");
         }
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("id");
-            this.id = jsonIdx.getString("id");
+            this.id = this.json.getString("id");
         } catch (JSONException e) {
             System.out.println("No id");
         }
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("unit");
-            this.unit = jsonIdx.getInt("unit");
+            this.unit = this.json.getInt("unit");
         } catch (JSONException e) {
             System.out.println("No unit");
         }
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("dtype");
-            this.dtype = jsonIdx.getString("dtype");
+            this.dtype = this.json.getString("dtype");
         } catch (JSONException e) {
             System.out.println("No dtype");
         }
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("stype");
-            this.stype = jsonIdx.getString("stype");
+            this.stype = this.json.getString("stype");
         } catch (JSONException e) {
             System.out.println("No stype");
         }
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("nvalue");
-            this.nvalue = jsonIdx.getInt("nvalue");
+            this.nvalue = this.json.getInt("nvalue");
         } catch (JSONException e) {
             System.out.println("No nvalue");
         }
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("svalue1");
-            this.svalue1 = jsonIdx.getInt("svalue1");
+            this.svalue1 = this.json.getInt("svalue1");
         } catch (JSONException e) {
             System.out.println("No svalue1");
         }
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("svalue2");
-            this.svalue2 = jsonIdx.getInt("svalue2");
+            this.svalue2 = this.json.getInt("svalue2");
         } catch (JSONException e) {
             System.out.println("No svalue2");
         }
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("battery");
-            this.battery = jsonIdx.getInt("battery");
+            this.battery = this.json.getInt("battery");
         } catch (JSONException e) {
             System.out.println("No battery value");
         }
         try {
-            JSONObject jsonIdx = this.json.getJSONObject("RSSI");
-            this.rssi = jsonIdx.getInt("RSSI");
+            this.rssi = this.json.getInt("RSSI");
         } catch (JSONException e) {
             System.out.println("No RSSI");
         }
@@ -153,10 +143,10 @@ public class JsonDz {
 
         // Les expressions régulières ça fait hacker
         // Permet de résumer tous les types de lumières dans la même catégorie
-        if (Pattern.matches("Light*", dtype) == true){
+        if (dtype.startsWith("Light")){
             dtype = "LightSwitch";
         }
-        else if(Pattern.matches("Therm*", dtype) == true || Pattern.matches("Temp*", dtype) == true){
+        else if(dtype.startsWith("Therm") || dtype.startsWith("Temp")){
             dtype = "Temp";
         }
         // Switch sur dtype pour savoir quel fragment updater
@@ -164,26 +154,32 @@ public class JsonDz {
         switch(dtype){
             case "Temp":
                 //Update ThermFragment
-                if(((LightFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).isNew(MyIdx)){
+                if(((ThermFragment) TabLayoutActivity.tabsPagerAdapter.getItem(2)).isNew(MyIdx)){
                     ItemDetails bleh = new ItemDetails();
                     bleh.setDesc("Je suis un thermometre");
                     bleh.setId(MyIdx);
-                    bleh.setName("Thermo");
+                    bleh.setName(name);
                     bleh.setVal(0);
                     bleh.setImageNumber(R.drawable.therm_64);
-                    ((ThermFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).addItemDetails(bleh);
+                    ((ThermFragment) TabLayoutActivity.tabsPagerAdapter.getItem(2)).addItemDetails(bleh);
                 }
                 break;
             case "LightSwitch":
                 //Update LightFragment
                 if(((LightFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).isNew(MyIdx)){
+                    Log.d("JsonDZ","LIGHT SWITCH");
                     ItemDetails bleh = new ItemDetails();
                     bleh.setDesc("Je suis une lampe");
                     bleh.setId(MyIdx);
-                    bleh.setName("Lampe");
-                    bleh.setVal(0);
-                    bleh.setImageNumber(R.drawable.lightbulb_icon_off64);
+                    bleh.setName(name);
+                    bleh.setVal(nvalue);
+                    if(nvalue > 0) bleh.setImageNumber(R.drawable.lightbulb_icon_on64);
+                    else bleh.setImageNumber(R.drawable.lightbulb_icon_off64);
                     ((LightFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).addItemDetails(bleh);
+                }
+                else
+                {
+
                 }
                 break;
 

@@ -37,6 +37,7 @@ public class Connections {
     /** List of {@link Connection} objects**/
     private HashMap<String, Connection> connections = null;
 
+
     /**
      * Create a Connections object
      * @param context Applications context
@@ -111,6 +112,7 @@ public class Connections {
      */
     public void removeConnection(Connection connection) {
         connections.remove(connection.handle());
+
     }
 
 }

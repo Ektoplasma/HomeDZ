@@ -30,29 +30,7 @@ public class ThermFragment extends Fragment {
 
         return rootView;
     }
-    // ne sert plus à rien, c'est dans JsonDZ
- /*   private ArrayList<ItemDetails> GetSearchResults() {
-        ArrayList<ItemDetails> results = new ArrayList<ItemDetails>();
 
-        ItemDetails item_details = new ItemDetails();
-        item_details.setName("Thermo1");
-        item_details.setId(1);
-        item_details.setDesc("Je suis un thermometre");
-        item_details.setVal(0);
-        item_details.setImageNumber(R.drawable.therm_64);
-        results.add(item_details);
-
-        item_details = new ItemDetails();
-        item_details.setName("Thermo2");
-        item_details.setId(2);
-        item_details.setDesc("Je suis un thermometre");
-        item_details.setVal(0);
-        item_details.setImageNumber(R.drawable.therm_64);
-        results.add(item_details);
-
-        return results;
-    }
-*/
     public void refresht() {
         //Initialise the arrayAdapter, view and add data
 
@@ -74,10 +52,14 @@ public class ThermFragment extends Fragment {
     public boolean isNew(int id){
         boolean hasNew = false;
         Iterator<ItemDetails> it = tableau.iterator();
-        while(it.hasNext() && hasNew == false){
-            if(it.next().getId() != id)
-                hasNew = true;
+        if(!it.hasNext()) hasNew = true;
+        else{
+            while(it.hasNext() && hasNew == false){
+                if(it.next().getId() != id)
+                    hasNew = true;
+            }
         }
+
         return hasNew;
     }
 }

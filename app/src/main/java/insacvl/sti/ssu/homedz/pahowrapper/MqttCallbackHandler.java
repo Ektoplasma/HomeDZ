@@ -120,6 +120,7 @@ public class MqttCallbackHandler implements MqttCallback {
         Log.d("MqttCallbackHandler",jsonMessage.getString("name"));
         //TODO : gérer l'action à effectuer à partir de la récéption de jsonMessage envoyé par le serveur DZ
         JsonDz jsondz = new JsonDz(jsonMessage);
+        jsondz.updateView(jsondz.getDtype());
 
     }
 
