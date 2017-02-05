@@ -26,6 +26,8 @@ public class LightFragment extends Fragment {
 
         //ArrayList<ItemDetails> image_details = GetSearchResults();
 
+        tableau = new ArrayList<ItemDetails>();
+
         lv1 = (ListView)rootView.findViewById(R.id.listView);
         lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
 

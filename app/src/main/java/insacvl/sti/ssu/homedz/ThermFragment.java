@@ -23,9 +23,9 @@ public class ThermFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_list_obat, container, false);
 
-        //  ArrayList<ItemDetails> image_details = GetSearchResults();
+        tableau = new ArrayList<ItemDetails>();
 
-        final ListView lv1 = (ListView)rootView.findViewById(R.id.listView);
+        lv1 = (ListView)rootView.findViewById(R.id.listView);
         lv1.setAdapter(new ItemListBaseAdapterTherm(getContext(), tableau));
 
         return rootView;

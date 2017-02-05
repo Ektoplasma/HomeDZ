@@ -65,9 +65,6 @@ public class Connection {
     /** True if this connection is secured using SSL **/
     private boolean sslConnection = false;
 
-    /** Persistence id, used by {@link Persistence} **/
-    private long persistenceId = -1;
-
     /**
      * Connections status for  a connection
      */
@@ -384,19 +381,5 @@ public class Connection {
         return sslConnection ? 1 : 0;
     }
 
-    /**
-     * Assign a persistence ID to this object
-     * @param id the persistence id to assign
-     */
-    public void assignPersistenceId(long id) {
-        persistenceId = id;
-    }
 
-    /**
-     * Returns the persistence ID assigned to this object
-     * @return the persistence ID assigned to this object
-     */
-    public long persistenceId() {
-        return persistenceId;
-    }
 }
