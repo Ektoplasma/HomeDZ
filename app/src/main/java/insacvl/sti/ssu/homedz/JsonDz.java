@@ -192,11 +192,7 @@ public class JsonDz {
                 }
                 else
                 {
-                    ItemDetails item = connection.whichOne(MyIdx);
-                    item.setName(name);
-                    item.setVal(nvalue);
-                    if(nvalue > 0) item.setImageNumber(R.drawable.lightbulb_icon_on64);
-                    else item.setImageNumber(R.drawable.lightbulb_icon_off64);
+                    connection.whichOne(MyIdx, name, nvalue);
                 }
                 break;
 

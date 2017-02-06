@@ -94,14 +94,16 @@ public class Connection {
         return hasNew;
     }
 
-    public ItemDetails whichOne(int idX){
+    public void whichOne(int idX, String name, int nvalue){
         Iterator<ItemDetails> it = tableauLight.iterator();
         while(it.hasNext()){
             if(it.next().getId() == idX){
-                return it.next();
+                it.next().setName(name);
+                it.next().setVal(nvalue);
+                if(it.next().getVal() > 0) it.next().setImageNumber(R.drawable.lightbulb_icon_on64);
+                else it.next().setImageNumber(R.drawable.lightbulb_icon_off64);
             }
         }
-        return null;
     }
 
 
