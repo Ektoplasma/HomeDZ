@@ -28,7 +28,7 @@ public class ActivityConstants {
   /*Default values **/
 
     /** Default QOS value*/
-    static final int defaultQos = 0;
+    public static final int defaultQos = 0;
     /** Default timeout*/
     static final int defaultTimeOut = 1000;
     /** Default keep alive value*/
