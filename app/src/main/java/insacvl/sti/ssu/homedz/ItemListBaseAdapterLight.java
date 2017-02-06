@@ -35,7 +35,7 @@ public class ItemListBaseAdapterLight extends BaseAdapter {
     public void setResults(ArrayList<ItemDetails> results)
     {
         itemDetailsrrayList = results;
-        l_Inflater = LayoutInflater.from(context);
+       // l_Inflater = LayoutInflater.from(context);
     }
 
     public int getCount() {
@@ -81,7 +81,7 @@ public class ItemListBaseAdapterLight extends BaseAdapter {
                     holder.img_item.setImageResource(R.drawable.lightbulb_icon_off64);
                     itemDetailsrrayList.get(position).setImageNumber(R.drawable.lightbulb_icon_off64);
 
-                    /*try {
+                    try {
                         String topic = "domoticz/in";
                         String message = "{\"command\": \"switchlight\", \"idx\": "+itemDetailsrrayList.get(position).getId()+", \"switchcmd\": \"Off\" }";
                         String args[] = new String[2];
@@ -97,9 +97,9 @@ public class ItemListBaseAdapterLight extends BaseAdapter {
                     }
                     catch (MqttException e) {
                         Log.e(this.getClass().getCanonicalName(), "Failed to publish a messged from the client with the handle " + ActivityConstants.currentHandler, e);
-                    }*/
+                    }
                 } else if (itemDetailsrrayList.get(position).getImageNumber() == R.drawable.lightbulb_icon_off64) {
-                    /*holder.img_item.setImageResource(R.drawable.lightbulb_icon_on64);
+                    holder.img_item.setImageResource(R.drawable.lightbulb_icon_on64);
                     itemDetailsrrayList.get(position).setImageNumber(R.drawable.lightbulb_icon_on64);
                     try {
                         String topic = "domoticz/in";
@@ -117,7 +117,7 @@ public class ItemListBaseAdapterLight extends BaseAdapter {
                     }
                     catch (MqttException e) {
                         Log.e(this.getClass().getCanonicalName(), "Failed to publish a messged from the client with the handle " + ActivityConstants.currentHandler, e);
-                    }*/
+                    }
                 }
                 else{
                     holder.txt_val.setText(Integer.toString(itemDetailsrrayList.get(position).getVal() + 1));

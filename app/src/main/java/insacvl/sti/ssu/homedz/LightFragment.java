@@ -77,7 +77,7 @@ public class LightFragment extends ListFragment {
                 printTab(image_details);
                 itemListBaseAdapterLight.setResults(image_details);
                 itemListBaseAdapterLight.notifyDataSetChanged();
-                setListAdapter(itemListBaseAdapterLight);
+                //setListAdapter(itemListBaseAdapterLight);
             }
         }
 
