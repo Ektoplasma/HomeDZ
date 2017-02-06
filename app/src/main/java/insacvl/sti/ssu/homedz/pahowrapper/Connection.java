@@ -94,6 +94,16 @@ public class Connection {
         return hasNew;
     }
 
+    public ItemDetails whichOne(int idX){
+        Iterator<ItemDetails> it = tableauLight.iterator();
+        while(it.hasNext()){
+            if(it.next().getId() == idX){
+                return it.next();
+            }
+        }
+        return null;
+    }
+
 
     /**
      * Connections status for  a connection
