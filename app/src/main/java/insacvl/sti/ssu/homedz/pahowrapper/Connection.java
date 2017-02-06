@@ -95,14 +95,16 @@ public class Connection {
     }
 
     public void whichOne(int idX, String name, int nvalue){
+        int i=0;
         Iterator<ItemDetails> it = tableauLight.iterator();
         while(it.hasNext()){
             if(it.next().getId() == idX){
-                it.next().setName(name);
-                it.next().setVal(nvalue);
-                if(it.next().getVal() > 0) it.next().setImageNumber(R.drawable.lightbulb_icon_on64);
-                else it.next().setImageNumber(R.drawable.lightbulb_icon_off64);
+                tableauLight.get(i).setName(name);
+                tableauLight.get(i).setVal(nvalue);
+                if(tableauLight.get(i).getVal() > 0) tableauLight.get(i).setImageNumber(R.drawable.lightbulb_icon_on64);
+                else tableauLight.get(i).setImageNumber(R.drawable.lightbulb_icon_off64);
             }
+            i++;
         }
     }
 
