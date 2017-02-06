@@ -1,7 +1,10 @@
 package insacvl.sti.ssu.homedz;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,55 +14,83 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ThermFragment extends Fragment {
+import insacvl.sti.ssu.homedz.pahowrapper.ActivityConstants;
+import insacvl.sti.ssu.homedz.pahowrapper.Connection;
+import insacvl.sti.ssu.homedz.pahowrapper.Connections;
 
-    private ListView lv1 = null;
-    private ArrayList<ItemDetails> tableau;
+public class ThermFragment extends ListFragment {
 
-    public ThermFragment() {
-    }
+    /** Client handle to a {@link Connection} object **/
+    String clientHandle = null;
+
+    private ItemListBaseAdapterTherm itemListBaseAdapterTherm = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_list_obat, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        tableau = new ArrayList<ItemDetails>();
+        clientHandle = ActivityConstants.currentHandler;
+        Connection connection = Connections.getInstance(getActivity()).getConnection(clientHandle);
 
-        lv1 = (ListView)rootView.findViewById(R.id.listView);
-        lv1.setAdapter(new ItemListBaseAdapterTherm(getContext(), tableau));
+        ArrayList<ItemDetails> image_details = connection.getTableauTemp();
 
-        return rootView;
+        itemListBaseAdapterTherm = new ItemListBaseAdapterTherm(getContext(), image_details);
+
+        setListAdapter(itemListBaseAdapterTherm);
+
     }
 
+
+    /**
+     * Updates the data
+     */
     public void refresht() {
         //Initialise the arrayAdapter, view and add data
 
-        if (lv1 != null && tableau != null) {
-            Log.d("ThermFragment","REFRESH OK");
+        // si l'activité n'a pas encore démarré, ajouter un délai
+        if(itemListBaseAdapterTherm != null) {
+            if (getContext() == null) {
+                Runnable task = new Runnable() {
+                    public void run() {
+                        Log.d("TempFragment", "REFRESH OK");
 
-            lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
-            lv1.deferNotifyDataSetChanged();
-        }
+                        Connection connection = Connections.getInstance(getActivity()).getConnection(clientHandle);
 
-    }
+                        ArrayList<ItemDetails> image_details = connection.getTableauTemp();
+                        printTab(image_details);
+                        itemListBaseAdapterTherm.setResults(image_details);
+                        itemListBaseAdapterTherm.notifyDataSetChanged();
+                        //setListAdapter(itemListBaseAdapterLight);
+                    }
+                };
 
-    public void addItemDetails(ItemDetails bleh) {
+                Handler handler = new Handler();
+                handler.postDelayed(task, 1000);
 
-        tableau.add(bleh);
-        refresht();
-    }
+            } else {
+                Log.d("TempFragment", "REFRESH OK");
 
-    public boolean isNew(int id){
-        boolean hasNew = false;
-        Iterator<ItemDetails> it = tableau.iterator();
-        if(!it.hasNext()) hasNew = true;
-        else{
-            while(it.hasNext() && hasNew == false){
-                if(it.next().getId() != id)
-                    hasNew = true;
+                Connection connection = Connections.getInstance(getActivity()).getConnection(clientHandle);
+
+                ArrayList<ItemDetails> image_details = connection.getTableauTemp();
+                printTab(image_details);
+                itemListBaseAdapterTherm.setResults(image_details);
+                itemListBaseAdapterTherm.notifyDataSetChanged();
+                //setListAdapter(itemListBaseAdapterLight);
             }
         }
 
-        return hasNew;
+    }
+
+    public void printTab(ArrayList<ItemDetails> tableau)
+    {
+        Log.d("ThermFragment", "LOLOOO");
+        Iterator<ItemDetails> it = tableau.iterator();
+        if(!it.hasNext()) Log.d("ThermFragment","Empty");
+        else{
+            while(it.hasNext()){
+                Log.d("ThermFragment",it.next().getName());
+            }
+        }
     }
 }

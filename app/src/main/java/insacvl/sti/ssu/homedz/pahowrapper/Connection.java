@@ -94,7 +94,7 @@ public class Connection {
         return hasNew;
     }
 
-    public void whichOne(int idX, String name, int nvalue){
+    public void whichOneLight(int idX, String name, int nvalue){
         int i=0;
         Iterator<ItemDetails> it = tableauLight.iterator();
         while(it.hasNext()){
@@ -108,6 +108,45 @@ public class Connection {
         }
     }
 
+    private ArrayList<ItemDetails> tableauTemp = new ArrayList<>();
+
+    public ArrayList<ItemDetails> getTableauTemp() {
+
+        return tableauTemp;
+    }
+
+    public void addItemDetailsTemp(ItemDetails bleh) {
+        tableauTemp.add(bleh);
+        Log.d("Connections","ADD ICI");
+        notifyListeners(new PropertyChangeEvent(this, ActivityConstants.historyProperty, null, null));
+    }
+
+    public boolean isNewTemp(int id) {
+        boolean hasNew = true;
+        Iterator<ItemDetails> it = tableauTemp.iterator();
+
+        while(it.hasNext() && hasNew == true){
+            if(it.next().getId() == id)
+                hasNew = false;
+        }
+        Log.d("isNew","hasNew? "+hasNew);
+
+        return hasNew;
+    }
+
+    public void whichOneTemp(int idX, String name, int nvalue){
+        int i=0;
+        Iterator<ItemDetails> it = tableauTemp.iterator();
+        while(it.hasNext()){
+            if(it.next().getId() == idX){
+                tableauTemp.get(i).setName(name);
+                tableauTemp.get(i).setVal(nvalue);
+                if(tableauTemp.get(i).getVal() > 0) tableauTemp.get(i).setImageNumber(R.drawable.lightbulb_icon_on64);
+                else tableauTemp.get(i).setImageNumber(R.drawable.lightbulb_icon_off64);
+            }
+            i++;
+        }
+    }
 
     /**
      * Connections status for  a connection

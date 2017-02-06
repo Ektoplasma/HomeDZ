@@ -112,6 +112,7 @@ public class TabLayoutActivity extends AppCompatActivity {
         connection.registerChangeListener(changeListener);
 
         get_idx_info(2);
+        //get_idx_info(5);
 
     }
 

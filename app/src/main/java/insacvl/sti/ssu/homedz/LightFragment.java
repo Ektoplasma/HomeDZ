@@ -21,8 +21,6 @@ import insacvl.sti.ssu.homedz.pahowrapper.Connections;
 
 public class LightFragment extends ListFragment {
 
-    private ListView lv1 = null;
-    private ArrayList<ItemDetails> tableau = new ArrayList<ItemDetails>();
     private ItemListBaseAdapterLight itemListBaseAdapterLight = null;
 
     /** Client handle to a {@link Connection} object **/

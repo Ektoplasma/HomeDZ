@@ -167,14 +167,18 @@ public class JsonDz {
         switch(dtype){
             case "Temp":
                 //Update ThermFragment
-                if(((ThermFragment) TabLayoutActivity.tabsPagerAdapter.getItem(2)).isNew(MyIdx)){
+                if(connection.isNewTemp(MyIdx)){
                     ItemDetails bleh = new ItemDetails();
                     bleh.setDesc("Je suis un thermometre");
                     bleh.setId(MyIdx);
                     bleh.setName(name);
-                    bleh.setVal(0);
+                    bleh.setVal(Math.round(svalue1));
                     bleh.setImageNumber(R.drawable.therm_64);
-                    ((ThermFragment) TabLayoutActivity.tabsPagerAdapter.getItem(2)).addItemDetails(bleh);
+                    connection.addItemDetailsTemp(bleh);
+                }
+                else
+                {
+                    connection.whichOneTemp(MyIdx, name, Math.round(svalue1));
                 }
                 break;
             case "LightSwitch":
@@ -192,7 +196,7 @@ public class JsonDz {
                 }
                 else
                 {
-                    connection.whichOne(MyIdx, name, nvalue);
+                    connection.whichOneLight(MyIdx, name, nvalue);
                 }
                 break;
 

@@ -12,6 +12,7 @@ public class ItemListBaseAdapterTherm extends BaseAdapter {
     private static ArrayList<ItemDetails> itemDetailsrrayList;
     private String type;
     private LayoutInflater l_Inflater;
+    private Context context = null;
 
     public ItemListBaseAdapterTherm(Context context, ArrayList<ItemDetails> results) {
         itemDetailsrrayList = results;
@@ -53,6 +54,11 @@ public class ItemListBaseAdapterTherm extends BaseAdapter {
         holder.txt_val.setText(Integer.toString(itemDetailsrrayList.get(position).getVal()));
 
         return convertView;
+    }
+
+    public void setResults(ArrayList<ItemDetails> image_details) {
+        itemDetailsrrayList = image_details;
+
     }
 
     static class ViewHolder {
