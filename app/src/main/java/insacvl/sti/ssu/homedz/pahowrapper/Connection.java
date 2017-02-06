@@ -141,8 +141,8 @@ public class Connection {
             if(it.next().getId() == idX){
                 tableauTemp.get(i).setName(name);
                 tableauTemp.get(i).setVal(nvalue);
-                if(tableauTemp.get(i).getVal() > 0) tableauTemp.get(i).setImageNumber(R.drawable.lightbulb_icon_on64);
-                else tableauTemp.get(i).setImageNumber(R.drawable.lightbulb_icon_off64);
+                if(tableauTemp.get(i).getVal() > 0) tableauTemp.get(i).setImageNumber(R.drawable.therm_64);
+                else tableauTemp.get(i).setImageNumber(R.drawable.therm_64);
             }
             i++;
         }
