@@ -76,7 +76,6 @@ public class TabLayoutActivity extends AppCompatActivity {
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("TabLayoutActivity", "ICI SELECTION OK");
                 // When the given tab is selected, switch to the corresponding page in
                 // the ViewPager.
                 pager.setCurrentItem(tab.getPosition());
@@ -86,6 +85,8 @@ public class TabLayoutActivity extends AppCompatActivity {
                 // history fragment is at position zero so get this then refresh its
                 // view
                 ((LogFragment) tabsPagerAdapter.getItem(0)).refresh();
+                ((LightFragment) tabsPagerAdapter.getItem(1)).refreshl();
+                //((ThermFragment) tabsPagerAdapter.getItem(2)).refresht();
             }
 
             @Override
@@ -109,6 +110,8 @@ public class TabLayoutActivity extends AppCompatActivity {
         connection = Connections.getInstance(this).getConnection(clientHandle);
         changeListener = new TabLayoutActivity.ChangeListener();
         connection.registerChangeListener(changeListener);
+
+        get_idx_info(2);
 
     }
 

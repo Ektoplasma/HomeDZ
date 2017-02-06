@@ -19,6 +19,10 @@ import java.beans.PropertyChangeListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+
+import insacvl.sti.ssu.homedz.ItemDetails;
+import insacvl.sti.ssu.homedz.LightFragment;
 import insacvl.sti.ssu.homedz.R;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import android.content.Context;
@@ -64,6 +68,32 @@ public class Connection {
 
     /** True if this connection is secured using SSL **/
     private boolean sslConnection = false;
+    private ArrayList<ItemDetails> tableauLight = new ArrayList<>();
+
+    public ArrayList<ItemDetails> getTableauLight() {
+
+        return tableauLight;
+    }
+
+    public void addItemDetailsLight(ItemDetails bleh) {
+        tableauLight.add(bleh);
+        Log.d("Connections","ADD ICI");
+        notifyListeners(new PropertyChangeEvent(this, ActivityConstants.historyProperty, null, null));
+    }
+
+    public boolean isNewLight(int id) {
+        boolean hasNew = true;
+        Iterator<ItemDetails> it = tableauLight.iterator();
+
+        while(it.hasNext() && hasNew == true){
+            if(it.next().getId() == id)
+                    hasNew = false;
+        }
+        Log.d("isNew","hasNew? "+hasNew);
+
+        return hasNew;
+    }
+
 
     /**
      * Connections status for  a connection

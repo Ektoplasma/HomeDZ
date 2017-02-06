@@ -2,7 +2,9 @@ package insacvl.sti.ssu.homedz;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,84 +14,75 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import insacvl.sti.ssu.homedz.pahowrapper.ActivityConstants;
+import insacvl.sti.ssu.homedz.pahowrapper.Connection;
+import insacvl.sti.ssu.homedz.pahowrapper.Connections;
 
-public class LightFragment extends Fragment {
+
+public class LightFragment extends ListFragment {
 
     private ListView lv1 = null;
     private ArrayList<ItemDetails> tableau = new ArrayList<ItemDetails>();
+    private ItemListBaseAdapterLight itemListBaseAdapterLight = null;
 
-    public LightFragment() {
-    }
+    /** Client handle to a {@link Connection} object **/
+    String clientHandle = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_list_obat, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        //ArrayList<ItemDetails> image_details = GetSearchResults();
+        clientHandle = ActivityConstants.currentHandler;
+        Connection connection = Connections.getInstance(getActivity()).getConnection(clientHandle);
 
-        lv1 = (ListView)rootView.findViewById(R.id.listView);
-        lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
+        ArrayList<ItemDetails> image_details = connection.getTableauLight();
 
-        return rootView;
+        itemListBaseAdapterLight = new ItemListBaseAdapterLight(getContext(), image_details);
+
+        setListAdapter(itemListBaseAdapterLight);
+
     }
-    // ne sert plus à rien, c'est dans JsonDZ
-   /* private ArrayList<ItemDetails> GetSearchResults() {
-        ArrayList<ItemDetails> results = new ArrayList<ItemDetails>();
 
-        ItemDetails item_details = new ItemDetails();
-        item_details.setName("Light1");
-        item_details.setId(1);
-        item_details.setDesc("Je suis une lumière");
-        item_details.setVal(0);
-        item_details.setImageNumber(R.drawable.lightbulb_icon_off64);
-        results.add(item_details);
-
-        item_details = new ItemDetails();
-        item_details.setName("Light2");
-        item_details.setId(2);
-        item_details.setDesc("Je suis une lumière");
-        item_details.setVal(0);
-        item_details.setImageNumber(R.drawable.lightbulb_icon_off64);
-        results.add(item_details);
-
-        return results;
-    }
-*/
     /**
      * Updates the data
      */
     public void refreshl() {
         //Initialise the arrayAdapter, view and add data
 
-        if (lv1 != null && tableau != null) {
-
             // si l'activité n'a pas encore démarré, ajouter un délai
-            if(getContext() == null)
-            {
+        if(itemListBaseAdapterLight != null) {
+            if (getContext() == null) {
                 Runnable task = new Runnable() {
                     public void run() {
-                        Log.d("LightFragment","REFRESH OK");
-                        Log.d("LightFragment", tableau.toString());
-                        lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
-                        lv1.deferNotifyDataSetChanged();
+                        Log.d("LightFragment", "REFRESH OK");
+                        Connection connection = Connections.getInstance(getActivity()).getConnection(clientHandle);
+
+                        ArrayList<ItemDetails> image_details = connection.getTableauLight();
+                        printTab(image_details);
+
+                        itemListBaseAdapterLight = new ItemListBaseAdapterLight(getContext(), image_details);
+                        itemListBaseAdapterLight.notifyDataSetChanged();
                     }
                 };
 
                 Handler handler = new Handler();
                 handler.postDelayed(task, 1000);
 
-            }
-            else {
+            } else {
                 Log.d("LightFragment", "REFRESH OK");
 
-                lv1.setAdapter(new ItemListBaseAdapterLight(getContext(), tableau));
-                lv1.deferNotifyDataSetChanged();
-            }
+                Connection connection = Connections.getInstance(getActivity()).getConnection(clientHandle);
 
+                ArrayList<ItemDetails> image_details = connection.getTableauLight();
+                printTab(image_details);
+                itemListBaseAdapterLight.setResults(image_details);
+                itemListBaseAdapterLight.notifyDataSetChanged();
+                setListAdapter(itemListBaseAdapterLight);
+            }
         }
 
     }
-
+/*
     public void addItemDetails(ItemDetails bleh) {
         tableau.add(bleh);
         refreshl();
@@ -108,5 +101,17 @@ public class LightFragment extends Fragment {
         }
 
         return hasNew;
+    }*/
+
+    public void printTab(ArrayList<ItemDetails> tableau)
+    {
+        Log.d("LightFragment", "LOLOOO");
+        Iterator<ItemDetails> it = tableau.iterator();
+        if(!it.hasNext()) Log.d("LightFragment","Empty");
+        else{
+            while(it.hasNext()){
+                Log.d("LightFragment",it.next().getName());
+            }
+        }
     }
 }

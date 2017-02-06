@@ -1,11 +1,16 @@
 package insacvl.sti.ssu.homedz;
 
+import android.content.Context;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.util.Log;
 import android.widget.Toast;
 import java.util.regex.Pattern;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import insacvl.sti.ssu.homedz.pahowrapper.ActivityConstants;
+import insacvl.sti.ssu.homedz.pahowrapper.Connection;
+import insacvl.sti.ssu.homedz.pahowrapper.Connections;
 
 /**
  * Created by Marthin on 22/01/2017.
@@ -46,11 +51,16 @@ public class JsonDz {
     //on recycle name, type et idx
     private String isDimmer;
     private String subtype;
+    private String clientHandle;
+    private Context ctx;
 
 
 
     //////////////////////// CONSTRUCTEUR ////////////////////////////////////
-    public JsonDz(JSONObject MyJSONObject) throws JSONException {
+    public JsonDz(JSONObject MyJSONObject, Context ctx) throws JSONException {
+        clientHandle = ActivityConstants.currentHandler;
+        this.ctx = ctx;
+
         this.json = MyJSONObject;
         try {
             this.setTitle();
@@ -141,6 +151,8 @@ public class JsonDz {
         int MyBattery = getBattery();
         int MyRssi = getRssi();
 
+        Connection connection = Connections.getInstance(ctx).getConnection(clientHandle);
+
         // Les expressions régulières ça fait hacker
         // Permet de résumer tous les types de lumières dans la même catégorie
         if (dtype.startsWith("Light")){
@@ -166,7 +178,7 @@ public class JsonDz {
                 break;
             case "LightSwitch":
                 //Update LightFragment
-                if(((LightFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).isNew(MyIdx)){
+                if(connection.isNewLight(MyIdx)){
                     Log.d("JsonDZ","LIGHT SWITCH");
                     ItemDetails bleh = new ItemDetails();
                     bleh.setDesc("Je suis une lampe");
@@ -175,7 +187,7 @@ public class JsonDz {
                     bleh.setVal(nvalue);
                     if(nvalue > 0) bleh.setImageNumber(R.drawable.lightbulb_icon_on64);
                     else bleh.setImageNumber(R.drawable.lightbulb_icon_off64);
-                    ((LightFragment) TabLayoutActivity.tabsPagerAdapter.getItem(1)).addItemDetails(bleh);
+                    connection.addItemDetailsLight(bleh);
                 }
                 else
                 {
