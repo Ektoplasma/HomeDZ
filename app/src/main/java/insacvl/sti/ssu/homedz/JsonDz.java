@@ -1,5 +1,6 @@
 package insacvl.sti.ssu.homedz;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.util.Log;
@@ -191,7 +192,11 @@ public class JsonDz {
                 }
                 else
                 {
-
+                    ItemDetails item = connection.whichOne(MyIdx);
+                    item.setName(name);
+                    item.setVal(nvalue);
+                    if(nvalue > 0) item.setImageNumber(R.drawable.lightbulb_icon_on64);
+                    else item.setImageNumber(R.drawable.lightbulb_icon_off64);
                 }
                 break;
 
