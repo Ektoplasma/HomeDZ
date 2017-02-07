@@ -19,7 +19,9 @@ import insacvl.sti.ssu.homedz.pahowrapper.Connection;
 import insacvl.sti.ssu.homedz.pahowrapper.Connections;
 import insacvl.sti.ssu.homedz.pahowrapper.Listener;
 
-
+/**
+ * This classes handles the fragments
+ */
 public class TabLayoutActivity extends AppCompatActivity {
 
     /** This instance of <code>TabLayoutActivity</code> **/

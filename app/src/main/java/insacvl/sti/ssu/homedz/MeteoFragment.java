@@ -21,7 +21,7 @@ public class MeteoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_list_obat, container, false);
 
-        tableau = new ArrayList<ItemDetails>();
+        tableau = new ArrayList<>();
 
         ListView lv1 = (ListView) rootView.findViewById(R.id.listView);
         lv1.setAdapter(new ItemListBaseAdapterMeteo(getContext(), GetSearchResults()));

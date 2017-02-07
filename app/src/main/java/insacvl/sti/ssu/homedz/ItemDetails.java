@@ -4,7 +4,11 @@ package insacvl.sti.ssu.homedz;
  * Created by Rudy on 30/01/2017.
  */
 
+/**
+ * This class tranlates an device into an object with its details
+ */
 public class ItemDetails {
+
     public String getName() {
         return name;
     }

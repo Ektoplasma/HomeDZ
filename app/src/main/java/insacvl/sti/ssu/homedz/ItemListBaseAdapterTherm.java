@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+/**
+ * Adapter to the list of therm sensors
+ */
 class ItemListBaseAdapterTherm extends BaseAdapter {
     private static ArrayList<ItemDetails> itemDetailsrrayList;
 

@@ -19,6 +19,9 @@ import insacvl.sti.ssu.homedz.pahowrapper.Connections;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter to the list of switches
+ */
 class ItemListBaseAdapterLight extends BaseAdapter {
 
     private Context context = null;

@@ -1,15 +1,11 @@
 package insacvl.sti.ssu.homedz;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.text.Spanned;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import insacvl.sti.ssu.homedz.pahowrapper.ActivityConstants;
 import insacvl.sti.ssu.homedz.pahowrapper.Connection;
@@ -38,7 +34,7 @@ public class LogFragment extends ListFragment {
         Spanned[] history = connection.history();
 
         //Initialise the arrayAdapter, view and add data
-        arrayAdapter = new ArrayAdapter<Spanned>(getActivity(), R.layout.list_view_text_view);
+        arrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.list_view_text_view);
 
         arrayAdapter.addAll(history);
         setListAdapter(arrayAdapter);
@@ -52,7 +48,6 @@ public class LogFragment extends ListFragment {
         //Initialise the arrayAdapter, view and add data
 
         if (arrayAdapter != null) {
-            Log.d("LogFragment","REFRESH OK");
             arrayAdapter.clear();
             arrayAdapter.addAll(Connections.getInstance(getActivity()).getConnection(clientHandle).history());
             arrayAdapter.notifyDataSetChanged();

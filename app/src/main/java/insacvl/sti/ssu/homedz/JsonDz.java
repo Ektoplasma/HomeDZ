@@ -114,11 +114,9 @@ public class JsonDz {
         }
     }
 
-    ////////////////////////////////// TODO RUDY ///////////////////////////
 
     public void updateView(String dtype){
         //On notera que ce système ne fonctionne pas pour les scènes
-        /*Todo : Partie pour Rudy (mettre à jour les différents fragments avec les infos*/
 
         // Les différentes variables à utiliser
         int MyIdx = getIdx();
