@@ -5,20 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ItemListBaseAdapterMeteo extends BaseAdapter {
+class ItemListBaseAdapterMeteo extends BaseAdapter {
 
-    private Context context = null;
+
     private static ArrayList<ItemDetails> itemDetailsrrayList;
     private LayoutInflater l_Inflater;
 
-    public ItemListBaseAdapterMeteo(Context context, ArrayList<ItemDetails> results) {
-        this.context = context;
+    ItemListBaseAdapterMeteo(Context context, ArrayList<ItemDetails> results) {
+
         itemDetailsrrayList = results;
         l_Inflater = LayoutInflater.from(context);
     }
@@ -56,7 +55,7 @@ public class ItemListBaseAdapterMeteo extends BaseAdapter {
         return convertView;
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
         ImageView img_item;
         TextView txt_desc;
         TextView txt_val;

@@ -2,7 +2,6 @@ package insacvl.sti.ssu.homedz;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -42,19 +41,11 @@ public class TabLayoutActivity extends AppCompatActivity {
      **/
     private Connection connection = null;
 
-    /** The currently selected tab **/
-    private int selected = 0;
 
     /**
      * {@link ViewPager} object allows pages to be flipped left and right
      */
     ViewPager pager;
-
-    /**
-     * The {@link TabLayoutActivity.ChangeListener} this object is using for the connection
-     * updates
-     **/
-    private TabLayoutActivity.ChangeListener changeListener = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +70,7 @@ public class TabLayoutActivity extends AppCompatActivity {
                 // When the given tab is selected, switch to the corresponding page in
                 // the ViewPager.
                 pager.setCurrentItem(tab.getPosition());
-                selected = tab.getPosition();
+
                 // invalidate the options menu so it can be updated
                 invalidateOptionsMenu();
                 // history fragment is at position zero so get this then refresh its
@@ -108,7 +99,11 @@ public class TabLayoutActivity extends AppCompatActivity {
         });
 
         connection = Connections.getInstance(this).getConnection(clientHandle);
-        changeListener = new TabLayoutActivity.ChangeListener();
+        /*
+      The {@link TabLayoutActivity.ChangeListener} this object is using for the connection
+      updates
+     */
+        ChangeListener changeListener = new ChangeListener();
         connection.registerChangeListener(changeListener);
 
         get_idx_info(2);
@@ -124,7 +119,7 @@ public class TabLayoutActivity extends AppCompatActivity {
         String topic = "domoticz/in";
         int qos = ActivityConstants.defaultQos;
 
-        String message = new String("{\"command\": \"getdeviceinfo\", \"idx\": "+idx+" }");
+        String message = "{\"command\": \"getdeviceinfo\", \"idx\": " + idx + " }";
 
         String[] args = new String[2];
         args[0] = message;
@@ -132,11 +127,7 @@ public class TabLayoutActivity extends AppCompatActivity {
 
         try {
             Connections.getInstance(getApplicationContext()).getConnection(clientHandle).getClient().publish(topic, message.getBytes(), qos, false, null, new ActionListener(getApplicationContext(), ActionListener.Action.PUBLISH, clientHandle, args));
-        }
-        catch (MqttSecurityException e) {
-            Log.e(this.getClass().getCanonicalName(), "Failed to publish a messged from the client with the handle " + clientHandle, e);
-        }
-        catch (MqttException e) {
+        } catch (MqttException e) {
             Log.e(this.getClass().getCanonicalName(), "Failed to publish a messged from the client with the handle " + clientHandle, e);
         }
     }
@@ -147,7 +138,6 @@ public class TabLayoutActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         int menuID;
-        Integer button = null;
         boolean connected = Connections.getInstance(this)
                 .getConnection(clientHandle).isConnected();
 
@@ -163,14 +153,6 @@ public class TabLayoutActivity extends AppCompatActivity {
         getMenuInflater().inflate(menuID, menu);
         Listener listener = new Listener(this, clientHandle);
         // add listeners
-        if (button != null) {
-            // add listeners
-            menu.findItem(button).setOnMenuItemClickListener(listener);
-            if (!Connections.getInstance(this).getConnection(clientHandle)
-                    .isConnected()) {
-                menu.findItem(button).setEnabled(false);
-            }
-        }
         // add the listener to the disconnect or connect menu option
         if (connected) {
             menu.findItem(R.id.disconnect).setOnMenuItemClickListener(listener);

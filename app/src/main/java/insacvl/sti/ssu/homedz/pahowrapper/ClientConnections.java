@@ -1,27 +1,13 @@
 package insacvl.sti.ssu.homedz.pahowrapper;
 
-/*******************************************************************************
- * Copyright (c) 1999, 2014 IBM Corp.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * and Eclipse Distribution License v1.0 which accompany this distribution.
- *
- * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at
- *   http://www.eclipse.org/org/documents/edl-v10.php.
- */
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.security.KeyManagementException;
-import java.security.KeyStore;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
-import java.util.Properties;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import insacvl.sti.ssu.homedz.pahowrapper.Connection.ConnectionStatus;
@@ -49,10 +35,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import javax.net.SocketFactory;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
 
 import insacvl.sti.ssu.homedz.R;
 
@@ -83,10 +66,6 @@ public class ClientConnections extends AppCompatActivity {
      */
     private ClientConnections clientConnections = this;
 
-    /**
-     * Contextual action bar active or not
-     */
-    private boolean contextualActionBarActive = false;
 
     private ListView connectionList;
 
@@ -100,7 +79,7 @@ public class ClientConnections extends AppCompatActivity {
         connectionList = (ListView) findViewById(R.id.list);
         connectionList.setOnItemLongClickListener(new LongClickItemListener());
         connectionList.setTextFilterEnabled(true);
-        arrayAdapter = new ArrayAdapter<Connection>(this,
+        arrayAdapter = new ArrayAdapter<>(this,
                 R.layout.connection_text_view);
         connectionList.setAdapter(arrayAdapter);
 
@@ -119,7 +98,6 @@ public class ClientConnections extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //if (!contextualActionBarActive) {
                     Connection c = arrayAdapter.getItem(position);
 
                     try {
@@ -127,11 +105,7 @@ public class ClientConnections extends AppCompatActivity {
                         topics[0] = "domoticz/out";
                         Connections.getInstance(getApplicationContext()).getConnection(c.handle()).getClient()
                                 .subscribe("domoticz/out", 0, null, new ActionListener(getApplicationContext(), ActionListener.Action.SUBSCRIBE, c.handle(), topics));
-                    }
-                    catch (MqttSecurityException e) {
-                        Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + "domoticz/out" + " the client with the handle " + c.handle(), e);
-                    }
-                    catch (MqttException e) {
+                    } catch (MqttException e) {
                         Log.e(this.getClass().getCanonicalName(), "Failed to subscribe to" + "domoticz/out" + " the client with the handle " + c.handle(), e);
                     }
                     // start the connectionDetails activity to display the details about the
@@ -141,7 +115,7 @@ public class ClientConnections extends AppCompatActivity {
                             "insacvl.sti.ssu.homedz.TabLayoutActivity");
                     intent.putExtra("handle", c.handle());
                     startActivity(intent);
-                //}
+
             }
         });
 
@@ -271,13 +245,11 @@ public class ClientConnections extends AppCompatActivity {
         client = Connections.getInstance(this).createClient(this, uri, clientId);
 
         if (ssl){
-            SSLContext sslContext = null;
+            SSLContext sslContext;
             try {
                 sslContext = SSLContext.getInstance("TLSv1.2");
                 sslContext.init(null, null, null);
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (KeyManagementException e) {
+            } catch (NoSuchAlgorithmException | KeyManagementException e) {
                 e.printStackTrace();
             }
 
@@ -309,17 +281,17 @@ public class ClientConnections extends AppCompatActivity {
         conOpt.setCleanSession(cleanSession);
         conOpt.setConnectionTimeout(timeout);
         conOpt.setKeepAliveInterval(keepalive);
+        assert username != null;
         if (!username.equals(ActivityConstants.empty)) {
             conOpt.setUserName(username);
         }
+        assert password != null;
         if (!password.equals(ActivityConstants.empty)) {
             conOpt.setPassword(password.toCharArray());
         }
 
         final ActionListener callback = new ActionListener(this,
                 ActionListener.Action.CONNECT, clientHandle, actionArgs);
-
-        boolean doConnect = true;
 
         client.setCallback(new MqttCallbackHandler(this, clientHandle));
 
@@ -329,14 +301,12 @@ public class ClientConnections extends AppCompatActivity {
 
         connection.addConnectionOptions(conOpt);
         Connections.getInstance(this).addConnection(connection);
-        if (doConnect) {
-            try {
-                client.connect(conOpt, null, callback);
-            }
-            catch (MqttException e) {
-                Log.e(this.getClass().getCanonicalName(),
-                        "MqttException Occured", e);
-            }
+        try {
+            client.connect(conOpt, null, callback);
+        }
+        catch (MqttException e) {
+            Log.e(this.getClass().getCanonicalName(),
+                    "MqttException Occured", e);
         }
 
     }
@@ -391,7 +361,6 @@ public class ClientConnections extends AppCompatActivity {
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             MenuInflater inflater = mode.getMenuInflater();
             inflater.inflate(R.menu.activity_client_connections_contextual, menu);
-            clientConnections.contextualActionBarActive = true;
             return true;
         }
 

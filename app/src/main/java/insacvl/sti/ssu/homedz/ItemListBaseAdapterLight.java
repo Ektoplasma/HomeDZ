@@ -1,6 +1,5 @@
 package insacvl.sti.ssu.homedz;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,19 +19,19 @@ import insacvl.sti.ssu.homedz.pahowrapper.Connections;
 
 import java.util.ArrayList;
 
-public class ItemListBaseAdapterLight extends BaseAdapter {
+class ItemListBaseAdapterLight extends BaseAdapter {
 
     private Context context = null;
     private static ArrayList<ItemDetails> itemDetailsrrayList;
     private LayoutInflater l_Inflater;
 
-    public ItemListBaseAdapterLight(Context context, ArrayList<ItemDetails> results) {
+    ItemListBaseAdapterLight(Context context, ArrayList<ItemDetails> results) {
         this.context = context;
         itemDetailsrrayList = results;
         l_Inflater = LayoutInflater.from(context);
     }
 
-    public void setResults(ArrayList<ItemDetails> results)
+    void setResults(ArrayList<ItemDetails> results)
     {
         itemDetailsrrayList = results;
        // l_Inflater = LayoutInflater.from(context);
@@ -91,11 +90,7 @@ public class ItemListBaseAdapterLight extends BaseAdapter {
 
                         Connections.getInstance(context).getConnection(ActivityConstants.currentHandler).getClient()
                                 .publish(topic, message.getBytes(), 0, false, null, new ActionListener(context, ActionListener.Action.PUBLISH, ActivityConstants.currentHandler, args));
-                    }
-                    catch (MqttSecurityException e) {
-                        Log.e(this.getClass().getCanonicalName(), "Failed to publish a messged from the client with the handle " + ActivityConstants.currentHandler, e);
-                    }
-                    catch (MqttException e) {
+                    } catch (MqttException e) {
                         Log.e(this.getClass().getCanonicalName(), "Failed to publish a messged from the client with the handle " + ActivityConstants.currentHandler, e);
                     }
                 } else if (itemDetailsrrayList.get(position).getImageNumber() == R.drawable.lightbulb_icon_off64) {
@@ -111,11 +106,7 @@ public class ItemListBaseAdapterLight extends BaseAdapter {
 
                         Connections.getInstance(context).getConnection(ActivityConstants.currentHandler).getClient()
                                 .publish(topic, message.getBytes(), 0, false, null, new ActionListener(context, ActionListener.Action.PUBLISH, ActivityConstants.currentHandler, args));
-                    }
-                    catch (MqttSecurityException e) {
-                        Log.e(this.getClass().getCanonicalName(), "Failed to publish a messged from the client with the handle " + ActivityConstants.currentHandler, e);
-                    }
-                    catch (MqttException e) {
+                    } catch (MqttException e) {
                         Log.e(this.getClass().getCanonicalName(), "Failed to publish a messged from the client with the handle " + ActivityConstants.currentHandler, e);
                     }
                 }
@@ -129,7 +120,7 @@ public class ItemListBaseAdapterLight extends BaseAdapter {
         return convertView;
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView txt_itemName;
         TextView txt_id;
         ImageView img_item;

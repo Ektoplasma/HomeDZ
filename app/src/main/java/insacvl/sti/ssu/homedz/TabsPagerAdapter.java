@@ -1,33 +1,26 @@
 package insacvl.sti.ssu.homedz;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ImageSpan;
-import android.util.Log;
+
 
 import java.util.ArrayList;
 
-import insacvl.sti.ssu.homedz.pahowrapper.ActivityConstants;
 
-public class TabsPagerAdapter extends FragmentPagerAdapter {
+class TabsPagerAdapter extends FragmentPagerAdapter {
 
-    Context context;
+    private Context context;
 
     // Stores the instances of the pages
     private ArrayList<Fragment> fragments = null;
 
-    public TabsPagerAdapter(FragmentManager fm, Context c) {
+    TabsPagerAdapter(FragmentManager fm, Context c) {
         super(fm);
         context = c;
-        fragments = new ArrayList<Fragment>();
+        fragments = new ArrayList<>();
         fragments.add(new LogFragment());
         fragments.add(new LightFragment());
         fragments.add(new ThermFragment());

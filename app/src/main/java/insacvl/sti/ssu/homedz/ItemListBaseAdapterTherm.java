@@ -8,13 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-public class ItemListBaseAdapterTherm extends BaseAdapter {
+class ItemListBaseAdapterTherm extends BaseAdapter {
     private static ArrayList<ItemDetails> itemDetailsrrayList;
-    private String type;
-    private LayoutInflater l_Inflater;
-    private Context context = null;
 
-    public ItemListBaseAdapterTherm(Context context, ArrayList<ItemDetails> results) {
+    private LayoutInflater l_Inflater;
+
+    ItemListBaseAdapterTherm(Context context, ArrayList<ItemDetails> results) {
         itemDetailsrrayList = results;
         l_Inflater = LayoutInflater.from(context);
     }
@@ -56,12 +55,12 @@ public class ItemListBaseAdapterTherm extends BaseAdapter {
         return convertView;
     }
 
-    public void setResults(ArrayList<ItemDetails> image_details) {
+    void setResults(ArrayList<ItemDetails> image_details) {
         itemDetailsrrayList = image_details;
 
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView txt_itemName;
         TextView txt_id;
         ImageView img_item;

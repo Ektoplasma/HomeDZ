@@ -23,13 +23,13 @@ public class ItemDetails {
     public void setVal(int valeur) {
         this.val = valeur;
     }
-    public String getDesc() {
+    String getDesc() {
         return description;
     }
-    public void setDesc(String desc){
+    void setDesc(String desc){
         description = desc;
     }
-    public int getImageNumber() {
+    int getImageNumber() {
         return imageNumber;
     }
     public void setImageNumber(int imageNumber) {

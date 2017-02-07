@@ -1,11 +1,8 @@
 package insacvl.sti.ssu.homedz;
 
-import android.content.ClipData;
+
 import android.content.Context;
-import android.hardware.camera2.params.StreamConfigurationMap;
-import android.util.Log;
-import android.widget.Toast;
-import java.util.regex.Pattern;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,23 +32,6 @@ public class JsonDz {
     //Pour scenes
     //on recycle le name et le idx des capteurs
     private String title;
-    private int favorite;
-    private int hardwareID;
-
-
-    private String lastUpdate;
-    private String status;
-    private String timers;
-    private String type;
-    //Pour sunrise/sunset
-    private String serverTime;
-    private String sunrise;
-    private String sunset;
-    //Pour lights-switches
-    // !! tableau !!
-    //on recycle name, type et idx
-    private String isDimmer;
-    private String subtype;
     private String clientHandle;
     private Context ctx;
 
@@ -142,15 +122,6 @@ public class JsonDz {
 
         // Les différentes variables à utiliser
         int MyIdx = getIdx();
-        String MyName = getName();
-        String MyId = getId();
-        int MyUnit = getUnit();
-        String MyStype = getStype();
-        int MyNvalue = getNvalue();
-        float MySvalue1 = getSvalue1();
-        float MySvalue2 = getSvalue2();
-        int MyBattery = getBattery();
-        int MyRssi = getRssi();
 
         Connection connection = Connections.getInstance(ctx).getConnection(clientHandle);
 
@@ -163,7 +134,6 @@ public class JsonDz {
             dtype = "Temp";
         }
         // Switch sur dtype pour savoir quel fragment updater
-        boolean hasNew = false;
         switch(dtype){
             case "Temp":
                 //Update ThermFragment
@@ -184,7 +154,6 @@ public class JsonDz {
             case "LightSwitch":
                 //Update LightFragment
                 if(connection.isNewLight(MyIdx)){
-                    Log.d("JsonDZ","LIGHT SWITCH");
                     ItemDetails bleh = new ItemDetails();
                     bleh.setDesc("Je suis une lampe");
                     bleh.setId(MyIdx);
@@ -205,59 +174,6 @@ public class JsonDz {
 
     ////////////////////////////// getters //////////////////////////////////
 
-    public int getHardwareID() {
-        return hardwareID;
-    }
-
-    public String getIsDimmer() {
-        return isDimmer;
-    }
-
-    public JSONObject getJson() {
-        return json;
-    }
-
-    public String getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public String getServerTime() {
-        return serverTime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getSubtype() {
-        return subtype;
-    }
-
-    public String getSunrise() {
-        return sunrise;
-    }
-
-    public String getSunset() {
-        return sunset;
-    }
-
-    public String getTimers() {
-        return timers;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public int getFavorite() {
-
-        return favorite;
-    }
-
-
-    public int getRssi() {
-        return rssi;
-    }
 
     public int getIdx() {
         return idx;
@@ -271,33 +187,11 @@ public class JsonDz {
         return id;
     }
 
-    public int getUnit() {
-        return unit;
-    }
-
     public String getDtype() {
         return dtype;
     }
 
-    public String getStype() {
-        return stype;
-    }
 
-    public int getNvalue() {
-        return nvalue;
-    }
-
-    public float getSvalue1() {
-        return svalue1;
-    }
-
-    public float getSvalue2() {
-        return svalue2;
-    }
-
-    public int getBattery() {
-        return battery;
-    }
 
     /* Structure foire du trone : le getter récupère le titre dans le json, le setter set en fonction */
     /* Get title section from response & set accordingly*/

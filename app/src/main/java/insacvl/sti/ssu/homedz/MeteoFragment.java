@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 
 public class MeteoFragment extends Fragment {
 
-    private ListView lv1 = null;
     private ArrayList<ItemDetails> tableau;
 
     public MeteoFragment(){
@@ -25,14 +23,14 @@ public class MeteoFragment extends Fragment {
 
         tableau = new ArrayList<ItemDetails>();
 
-        lv1 = (ListView) rootView.findViewById(R.id.listView);
+        ListView lv1 = (ListView) rootView.findViewById(R.id.listView);
         lv1.setAdapter(new ItemListBaseAdapterMeteo(getContext(), GetSearchResults()));
 
         return rootView;
     }
 
     private ArrayList<ItemDetails> GetSearchResults() {
-        ArrayList<ItemDetails> results = new ArrayList<ItemDetails>();
+        ArrayList<ItemDetails> results = new ArrayList<>();
 
         ItemDetails item_details = new ItemDetails();
         item_details.setDesc("Bourges");

@@ -1,18 +1,5 @@
 package insacvl.sti.ssu.homedz.pahowrapper;
 
-/*******************************************************************************
- * Copyright (c) 1999, 2014 IBM Corp.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * and Eclipse Distribution License v1.0 which accompany this distribution.
- *
- * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at
- *   http://www.eclipse.org/org/documents/edl-v10.php.
- */
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import insacvl.sti.ssu.homedz.R;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -110,7 +96,7 @@ public class NewConnection extends AppCompatActivity {
         //used for starting activities
         private NewConnection newConnection = null;
 
-        public Listener(NewConnection newConnection)
+        Listener(NewConnection newConnection)
         {
             this.newConnection = newConnection;
         }
@@ -238,11 +224,11 @@ public class NewConnection extends AppCompatActivity {
         if (!persisted.exists()) {
             return new String[0];
         }
-        ArrayList<String> hosts = new ArrayList<String>();
+        ArrayList<String> hosts = new ArrayList<>();
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(persisted));
-            String line = null;
+            String line;
             line = br.readLine();
             while (line != null) {
                 hosts.add(line);

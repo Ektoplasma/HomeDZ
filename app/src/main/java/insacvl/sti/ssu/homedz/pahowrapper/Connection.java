@@ -1,18 +1,5 @@
 package insacvl.sti.ssu.homedz.pahowrapper;
 
-/*******************************************************************************
- * Copyright (c) 1999, 2014 IBM Corp.
- *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * and Eclipse Distribution License v1.0 which accompany this distribution.
- *
- * The Eclipse Public License is available at
- *    http://www.eclipse.org/legal/epl-v10.html
- * and the Eclipse Distribution License is available at
- *   http://www.eclipse.org/org/documents/edl-v10.php.
- */
-
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -22,7 +9,6 @@ import java.util.Date;
 import java.util.Iterator;
 
 import insacvl.sti.ssu.homedz.ItemDetails;
-import insacvl.sti.ssu.homedz.LightFragment;
 import insacvl.sti.ssu.homedz.R;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import android.content.Context;
@@ -58,7 +44,7 @@ public class Connection {
     private MqttAndroidClient client = null;
 
     /** Collection of {@link PropertyChangeListener} **/
-    private ArrayList<PropertyChangeListener> listeners = new ArrayList<PropertyChangeListener>();
+    private ArrayList<PropertyChangeListener> listeners = new ArrayList<>();
 
     /** The {@link Context} of the application this object is part of**/
     private Context context = null;
@@ -85,7 +71,7 @@ public class Connection {
         boolean hasNew = true;
         Iterator<ItemDetails> it = tableauLight.iterator();
 
-        while(it.hasNext() && hasNew == true){
+        while(it.hasNext() && hasNew){
             if(it.next().getId() == id)
                     hasNew = false;
         }
@@ -96,12 +82,12 @@ public class Connection {
 
     public void whichOneLight(int idX, String name, int nvalue){
         int i=0;
-        Iterator<ItemDetails> it = tableauLight.iterator();
-        while(it.hasNext()){
-            if(it.next().getId() == idX){
+        for (ItemDetails aTableauLight : tableauLight) {
+            if (aTableauLight.getId() == idX) {
                 tableauLight.get(i).setName(name);
                 tableauLight.get(i).setVal(nvalue);
-                if(tableauLight.get(i).getVal() > 0) tableauLight.get(i).setImageNumber(R.drawable.lightbulb_icon_on64);
+                if (tableauLight.get(i).getVal() > 0)
+                    tableauLight.get(i).setImageNumber(R.drawable.lightbulb_icon_on64);
                 else tableauLight.get(i).setImageNumber(R.drawable.lightbulb_icon_off64);
             }
             i++;
@@ -125,7 +111,7 @@ public class Connection {
         boolean hasNew = true;
         Iterator<ItemDetails> it = tableauTemp.iterator();
 
-        while(it.hasNext() && hasNew == true){
+        while(it.hasNext() && hasNew){
             if(it.next().getId() == id)
                 hasNew = false;
         }
@@ -136,12 +122,12 @@ public class Connection {
 
     public void whichOneTemp(int idX, String name, int nvalue){
         int i=0;
-        Iterator<ItemDetails> it = tableauTemp.iterator();
-        while(it.hasNext()){
-            if(it.next().getId() == idX){
+        for (ItemDetails aTableauTemp : tableauTemp) {
+            if (aTableauTemp.getId() == idX) {
                 tableauTemp.get(i).setName(name);
                 tableauTemp.get(i).setVal(nvalue);
-                if(tableauTemp.get(i).getVal() > 0) tableauTemp.get(i).setImageNumber(R.drawable.therm_64);
+                if (tableauTemp.get(i).getVal() > 0)
+                    tableauTemp.get(i).setImageNumber(R.drawable.therm_64);
                 else tableauTemp.get(i).setImageNumber(R.drawable.therm_64);
             }
             i++;
@@ -168,37 +154,6 @@ public class Connection {
     }
 
     /**
-     * Creates a connection from persisted information in the database store, attempting
-     * to create a {@link MqttAndroidClient} and the client handle.
-     * @param clientId The id of the client
-     * @param host the server which the client is connecting to
-     * @param port the port on the server which the client will attempt to connect to
-     * @param context the application context
-     * @param sslConnection true if the connection is secured by SSL
-     * @return a new instance of <code>Connection</code>
-     */
-    public static Connection createConnection(String clientId, String host,
-                                              int port, Context context, boolean sslConnection) {
-        String handle = null;
-        String uri = null;
-        if (sslConnection) {
-            uri = "ssl://" + host + ":" + port;
-            handle = uri + clientId;
-        }
-        else {
-            uri = "tcp://" + host + ":" + port;
-            handle = uri + clientId;
-        }
-        Log.d("Connection",context.toString());
-        Log.d("Connection",uri);
-        Log.d("Connection",clientId);
-        MqttAndroidClient client = new MqttAndroidClient(context, uri, clientId);
-        Log.d("Connection",client.toString());
-        return new Connection(handle, clientId, host, port, context, client, sslConnection);
-
-    }
-
-    /**
      * Creates a connection object with the server information and the client
      * hand which is the reference used to pass the client around activities
      * @param clientHandle The handle to this <code>Connection</code> object
@@ -219,19 +174,18 @@ public class Connection {
         this.context = context;
         this.client = client;
         this.sslConnection = sslConnection;
-        history = new ArrayList<String>();
-        StringBuffer sb = new StringBuffer();
-        sb.append("Client: ");
-        sb.append(clientId);
-        sb.append(" created");
-        addAction(sb.toString());
+        history = new ArrayList<>();
+        String sb = "Client: " +
+                clientId +
+                " created";
+        addAction(sb);
     }
 
     /**
      * Add an action to the history of the client
      * @param action the history item to add
      */
-    public void addAction(String action) {
+    void addAction(String action) {
 
         Object[] args = new String[1];
         SimpleDateFormat sdf = new SimpleDateFormat(context.getString(R.string.dateFormat));
@@ -285,7 +239,7 @@ public class Connection {
      * Changes the connection status of the client
      * @param connectionStatus The connection status of this connection
      */
-    public void changeConnectionStatus(ConnectionStatus connectionStatus) {
+    void changeConnectionStatus(ConnectionStatus connectionStatus) {
         status = connectionStatus;
         notifyListeners((new PropertyChangeEvent(this, ActivityConstants.ConnectionStatusProperty, null, null)));
     }
@@ -299,7 +253,7 @@ public class Connection {
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(clientId);
         sb.append("\n ");
 
@@ -327,15 +281,6 @@ public class Connection {
         sb.append(host);
 
         return sb.toString();
-    }
-
-    /**
-     * Determines if a given handle refers to this client
-     * @param handle The handle to compare with this clients handle
-     * @return true if the handles match
-     */
-    public boolean isHandle(String handle) {
-        return clientHandle.equals(handle);
     }
 
     /**
@@ -368,7 +313,7 @@ public class Connection {
      * Get the host name of the server that this connection object is associated with
      * @return the host name of the server this connection object is associated with
      */
-    public String getHostName() {
+    String getHostName() {
 
         return host;
     }
@@ -377,16 +322,8 @@ public class Connection {
      * Determines if the client is in a state of connecting or connected.
      * @return if the client is connecting or connected
      */
-    public boolean isConnectedOrConnecting() {
+    boolean isConnectedOrConnecting() {
         return (status == ConnectionStatus.CONNECTED) || (status == ConnectionStatus.CONNECTING);
-    }
-
-    /**
-     * Client is currently not in an error state
-     * @return true if the client is in not an error state
-     */
-    public boolean noError() {
-        return status != ConnectionStatus.ERROR;
     }
 
     /**
@@ -402,7 +339,7 @@ public class Connection {
      * Add the connectOptions used to connect the client to the server
      * @param connectOptions the connectOptions used to connect to the server
      */
-    public void addConnectionOptions(MqttConnectOptions connectOptions) {
+    void addConnectionOptions(MqttConnectOptions connectOptions) {
         conOpt = connectOptions;
 
     }
@@ -411,7 +348,7 @@ public class Connection {
      * Get the connectOptions used to connect this client to the server
      * @return The connectOptions used to connect the client to the server
      */
-    public MqttConnectOptions getConnectionOptions()
+    MqttConnectOptions getConnectionOptions()
     {
         return conOpt;
     }
@@ -448,20 +385,5 @@ public class Connection {
         }
     }
 
-    /**
-     * Gets the port that this connection connects to.
-     * @return port that this connection connects to
-     */
-    public int getPort() {
-        return port;
-    }
-
-    /**
-     * Determines if the connection is secured using SSL, returning a C style integer value
-     * @return 1 if SSL secured 0 if plain text
-     */
-    public int isSSL() {
-        return sslConnection ? 1 : 0;
-    }
 
 }
